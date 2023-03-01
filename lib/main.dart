@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -15,7 +16,20 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
+  checkUserAuth();
+
   runApp(const MyApp());
+}
+
+String? initialRoute;
+void checkUserAuth() {
+  FirebaseAuth.instance.authStateChanges().listen((User? user) {
+    if (user == null) {
+      initialRoute = AppRoutes.loginScreenRoute;
+    } else {
+      initialRoute = AppRoutes.btmNavScreenRoute;
+    }
+  });
 }
 
 class MyApp extends StatefulWidget {
