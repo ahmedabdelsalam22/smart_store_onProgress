@@ -63,7 +63,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '286517330005',
     projectId: 'smart-store-ebfc0',
     storageBucket: 'smart-store-ebfc0.appspot.com',
-    iosClientId: '286517330005-bkc9virqagqfnc6lgfqm4636h6rdj43a.apps.googleusercontent.com',
+    iosClientId:
+        '286517330005-bkc9virqagqfnc6lgfqm4636h6rdj43a.apps.googleusercontent.com',
     iosBundleId: 'com.example.smartStore',
   );
 }

@@ -47,7 +47,9 @@ class SettingScreen extends StatelessWidget {
                           fontWeight: FontWeight.bold),
                       children: <TextSpan>[
                         TextSpan(
-                            text: currentUser!.displayName,
+                            text: currentUser!.displayName == null
+                                ? ""
+                                : currentUser.displayName,
                             style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 25,
@@ -62,7 +64,9 @@ class SettingScreen extends StatelessWidget {
                   height: 5,
                 ),
                 TextWidget(
-                  text: "${currentUser.email}",
+                  text: currentUser.email == null
+                      ? "no user login"
+                      : "${currentUser.email}",
                   color: Colors.black,
                   textSize: 18,
                   // isTitle: true,

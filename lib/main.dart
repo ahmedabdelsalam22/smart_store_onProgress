@@ -27,6 +27,7 @@ Future<void> main() async {
 }
 
 String? initialRoute;
+
 void checkUserAuth() {
   FirebaseAuth.instance.authStateChanges().listen((User? user) {
     if (user == null) {
