@@ -25,6 +25,21 @@ class AuthCubit extends Cubit<AuthState> {
     });
   }
 
+  void userLogin({
+    required String emailAddress,
+    required String password,
+  }) {
+    emit(LoginLoadingState());
+    _authRepository
+        .signInWithEmailAndPassword(
+            emailAddress: emailAddress, password: password)
+        .then((value) {
+      emit(LoginSuccessState());
+    }).catchError((onError) {
+      emit(LoginErrorState(onError.toString()));
+    });
+  }
+
   void signOut() {
     emit(SignOutLoadingState());
     _authRepository.signOut().then((value) {

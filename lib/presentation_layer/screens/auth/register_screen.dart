@@ -36,31 +36,26 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AuthCubit, AuthState>(
-      listener: (context, state) {
-        if (state is RegisterSuccessState)
-          Navigator.pushNamed(
-            context,
-            AppRoutes.btmNavScreenRoute,
-          );
-      },
-      builder: (context, state) {
-        var cubit = AuthCubit.get(context);
-
-        return Scaffold(
-          appBar: AppBar(
-            automaticallyImplyLeading: false,
-            leading: BackWidget(),
-            backgroundColor: ColorManager.backGround,
-            elevation: 0.0,
-          ),
-          backgroundColor: ColorManager.backGround,
-          body: SingleChildScrollView(
-            physics: const BouncingScrollPhysics(),
-            child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 46.0, horizontal: 32.0),
-              child: Center(
+    return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        leading: BackWidget(),
+        backgroundColor: ColorManager.backGround,
+        elevation: 0.0,
+      ),
+      backgroundColor: ColorManager.backGround,
+      body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 46.0, horizontal: 32.0),
+          child: BlocConsumer<AuthCubit, AuthState>(
+            listener: (context, state) {
+              if (state is RegisterSuccessState)
+                Navigator.pushNamed(context, AppRoutes.btmNavScreenRoute);
+            },
+            builder: (context, state) {
+              var cubit = AuthCubit.get(context);
+              return Center(
                 child: Form(
                   key: _formKey,
                   child: Column(
@@ -202,11 +197,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ],
                   ),
                 ),
-              ),
-            ),
+              );
+            },
           ),
-        );
-      },
+        ),
+      ),
     );
   }
 }

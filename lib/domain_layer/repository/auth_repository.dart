@@ -12,6 +12,7 @@ abstract class AuthRepository {
 
 class AuthRepositoryImpl implements AuthRepository {
   final RemoteDataSource _remoteDataSource;
+
   AuthRepositoryImpl(this._remoteDataSource);
 
   @override
