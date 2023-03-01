@@ -2,8 +2,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:smart_store/presentation_layer/controller/cubit/auth_cubit.dart';
 
 import 'core/route_manager/app_routes.dart';
+import 'data_layer/data_source/remote_data_source.dart';
+import 'domain_layer/repository/auth_repository.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
@@ -43,11 +47,15 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Lab Store',
-      initialRoute: initialRoute,
-      onGenerateRoute: AppRouter.onGenerateRoute,
+    return BlocProvider(
+      create: (context) =>
+          AuthCubit(AuthRepositoryImpl(RemoteDataSourceImpl())),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Lab Store',
+        initialRoute: initialRoute,
+        onGenerateRoute: AppRouter.onGenerateRoute,
+      ),
     );
   }
 }
