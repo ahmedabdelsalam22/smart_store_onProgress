@@ -1,10 +1,15 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:smart_store/presentation_layer/screens/btm_nav_bar_screen/setting_screen/social_medial.dart';
 
+import '../../../../core/firebase_constance.dart';
+import '../../../../core/route_manager/app_routes.dart';
 import '../../../../core/style/color_manager.dart';
+import '../../../controller/auth_state.dart';
+import '../../../controller/cubit/auth_cubit.dart';
 import '../../../widgets/text_widget.dart';
 
 class SettingScreen extends StatelessWidget {
@@ -12,10 +17,13 @@ class SettingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var currentUser = FireBaseConstance.currentUser;
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.white,
+          elevation: 0.0,
           title: TextWidget(
             text: 'Setting',
             color: ColorManager.primary,
@@ -39,7 +47,7 @@ class SettingScreen extends StatelessWidget {
                           fontWeight: FontWeight.bold),
                       children: <TextSpan>[
                         TextSpan(
-                            text: 'user',
+                            text: currentUser!.displayName,
                             style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 25,
@@ -54,7 +62,7 @@ class SettingScreen extends StatelessWidget {
                   height: 5,
                 ),
                 TextWidget(
-                  text: 'user email',
+                  text: "${currentUser.email}",
                   color: Colors.black,
                   textSize: 18,
                   // isTitle: true,
@@ -67,15 +75,6 @@ class SettingScreen extends StatelessWidget {
                 ),
                 const SizedBox(
                   height: 20,
-                ),
-                _listTiles(
-                  title: 'Address',
-                  subtitle: 'address',
-                  icon: IconlyBold.profile,
-                  onPressed: () async {
-                    /// TODO
-                  },
-                  color: Colors.black,
                 ),
                 _listTiles(
                     title: 'Technical support',
@@ -91,12 +90,23 @@ class SettingScreen extends StatelessWidget {
                     onPressed: () {
                       _callNumber();
                     }),
-                _listTiles(
-                  title: 'Logout',
-                  icon: IconlyBold.logout,
-                  color: Colors.black,
-                  onPressed: () {
-                    ///Navigate to login screen
+                BlocConsumer<AuthCubit, AuthState>(
+                  listener: (context, state) {
+                    if (state is SignOutSuccessState)
+                      Navigator.pushNamed(context, AppRoutes.loginScreenRoute);
+
+                    /// TODO: this issue
+                  },
+                  builder: (context, state) {
+                    var cubit = AuthCubit.get(context);
+                    return _listTiles(
+                      title: 'Logout',
+                      icon: IconlyBold.logout,
+                      color: Colors.black,
+                      onPressed: () {
+                        cubit.signOut();
+                      },
+                    );
                   },
                 ),
                 SizedBox(
