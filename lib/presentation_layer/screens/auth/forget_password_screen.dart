@@ -26,6 +26,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
       appBar: AppBar(
         leading: BackWidget(),
         backgroundColor: Colors.white,
+        elevation: 0.0,
       ),
       body: SingleChildScrollView(
         child: Center(

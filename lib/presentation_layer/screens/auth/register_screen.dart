@@ -37,6 +37,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         leading: BackWidget(),
+        backgroundColor: ColorManager.backGround,
+        elevation: 0.0,
       ),
       backgroundColor: ColorManager.backGround,
       body: SingleChildScrollView(
