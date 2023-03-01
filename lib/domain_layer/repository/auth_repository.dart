@@ -1,7 +1,7 @@
 import '../../data_layer/data_source/remote_data_source.dart';
 
 abstract class AuthRepository {
-  Future<void> signInWithEmailAndPassword(
+  Future<void> createUserWithEmailAndPassword(
       {required String emailAddress, required String password});
 
   Future<void> signOut();
@@ -12,9 +12,9 @@ class AuthRepositoryImpl implements AuthRepository {
   AuthRepositoryImpl(this._remoteDataSource);
 
   @override
-  Future<void> signInWithEmailAndPassword(
+  Future<void> createUserWithEmailAndPassword(
       {required String emailAddress, required String password}) async {
-    await _remoteDataSource.signInWithEmailAndPassword(
+    await _remoteDataSource.createUserWithEmailAndPassword(
         emailAddress: emailAddress, password: password);
   }
 
