@@ -1,6 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
 abstract class RemoteDataSource {
+  Future<void> createUserWithEmailAndPassword(
+      {required String emailAddress, required String password});
+
   Future<void> signInWithEmailAndPassword(
       {required String emailAddress, required String password});
 
@@ -9,6 +12,23 @@ abstract class RemoteDataSource {
 
 class RemoteDataSourceImpl implements RemoteDataSource {
   var _authInstance = FirebaseAuth.instance;
+
+  @override
+  Future<void> createUserWithEmailAndPassword(
+      {required String emailAddress, required String password}) async {
+    try {
+      await _authInstance.createUserWithEmailAndPassword(
+        email: emailAddress,
+        password: password,
+      );
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        print('No user found for that email.');
+      } else if (e.code == 'wrong-password') {
+        print('Wrong password provided for that user.');
+      }
+    }
+  }
 
   @override
   Future<void> signInWithEmailAndPassword(
