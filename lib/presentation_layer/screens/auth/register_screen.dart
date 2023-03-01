@@ -39,7 +39,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state is RegisterSuccessState)
-          Navigator.pushNamed(context, AppRoutes.btmNavScreenRoute);
+          Navigator.pushNamed(
+            context,
+            AppRoutes.btmNavScreenRoute,
+          );
       },
       builder: (context, state) {
         var cubit = AuthCubit.get(context);
