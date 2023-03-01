@@ -12,6 +12,7 @@ Future<void> main() async {
     statusBarIconBrightness: Brightness.dark,
   ));
 
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -45,7 +46,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Lab Store',
-      initialRoute: AppRoutes.loginScreenRoute,
+      initialRoute: initialRoute,
       onGenerateRoute: AppRouter.onGenerateRoute,
     );
   }
