@@ -45,6 +45,8 @@ dependencies:
   flutter_native_splash: ^2.2.16
   url_launcher: ^6.1.7
   flutter_phone_direct_caller: ^2.1.1
+  firebase_auth: ^4.2.9
+  firebase_core: ^2.7.0
 
 
 dev_dependencies:
