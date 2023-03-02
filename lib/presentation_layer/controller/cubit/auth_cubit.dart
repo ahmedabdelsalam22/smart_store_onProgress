@@ -18,6 +18,7 @@ class AuthCubit extends Cubit<AuthState> {
   bool isEmailVerified() => _authRepository.isEmailVerified();
 
   void userRegister({
+    required String name,
     required String emailAddress,
     required String password,
   }) {
@@ -27,6 +28,7 @@ class AuthCubit extends Cubit<AuthState> {
             emailAddress: emailAddress, password: password)
         .then((value) {
       emit(RegisterSuccessState());
+      uploadUserToFireStore(name: name, email: emailAddress);
     }).catchError((onError) {
       emit(RegisterErrorState(onError.toString()));
     });
