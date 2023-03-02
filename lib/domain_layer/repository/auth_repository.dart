@@ -1,7 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
+
 import '../../data_layer/data_source/auth_remote_data_source.dart';
 
 abstract class AuthRepository {
-  Future<void> createUserWithEmailAndPassword(
+  Future<User?> createUserWithEmailAndPassword(
       {required String emailAddress, required String password});
 
   void sendEmailVerification();
@@ -20,12 +22,13 @@ class AuthRepositoryImpl implements AuthRepository {
   AuthRepositoryImpl(this._remoteDataSource);
 
   @override
-  Future<void> createUserWithEmailAndPassword(
+  Future<User?> createUserWithEmailAndPassword(
       {required String emailAddress, required String password}) async {
-    await _remoteDataSource.createUserWithEmailAndPassword(
+    final user = await _remoteDataSource.createUserWithEmailAndPassword(
       emailAddress: emailAddress,
       password: password,
     );
+    return user;
   }
 
   @override

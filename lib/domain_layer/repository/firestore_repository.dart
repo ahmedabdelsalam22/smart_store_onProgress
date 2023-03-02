@@ -3,7 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../../data_layer/data_source/firestore_remote_data_source.dart';
 
 abstract class FireStoreRepository {
-  Future<void> uploadUserDataToFireStore({required Map<String, dynamic> data});
+  Future<void> uploadUserDataToFireStore(
+      {required Map<String, dynamic> data, required String uid});
 }
 
 class FireStoreRepositoryImpl implements FireStoreRepository {
@@ -13,12 +14,11 @@ class FireStoreRepositoryImpl implements FireStoreRepository {
   final _currentUser = FirebaseAuth.instance.currentUser;
 
   @override
-  Future<void> uploadUserDataToFireStore({
-    required Map<String, dynamic> data,
-  }) async {
+  Future<void> uploadUserDataToFireStore(
+      {required Map<String, dynamic> data, required String uid}) async {
     await _remoteDataSource.uploadDataToFireStore(
       collection: 'users',
-      doc: _currentUser!.uid,
+      doc: uid,
       data: data,
     );
   }
