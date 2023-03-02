@@ -5,6 +5,8 @@ abstract class FireStoreRemoteDataSource {
       {required String collection,
       required String doc,
       required Map<String, dynamic> data});
+
+  Future<dynamic> getDataFromFireStore();
 }
 
 class FireStoreRemoteDataSourceImpl implements FireStoreRemoteDataSource {
@@ -16,5 +18,11 @@ class FireStoreRemoteDataSourceImpl implements FireStoreRemoteDataSource {
       required String doc,
       required Map<String, dynamic> data}) async {
     await _fireStore.collection(collection).doc(doc).set(data);
+  }
+
+  @override
+  Future getDataFromFireStore() {
+    // TODO: implement getDataFromFireStore
+    throw UnimplementedError();
   }
 }

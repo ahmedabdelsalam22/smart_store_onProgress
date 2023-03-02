@@ -1,5 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
-
 import '../../data_layer/data_source/firestore_remote_data_source.dart';
 
 abstract class FireStoreRepository {
@@ -9,9 +7,8 @@ abstract class FireStoreRepository {
 
 class FireStoreRepositoryImpl implements FireStoreRepository {
   final FireStoreRemoteDataSource _remoteDataSource;
-  FireStoreRepositoryImpl(this._remoteDataSource);
 
-  final _currentUser = FirebaseAuth.instance.currentUser;
+  FireStoreRepositoryImpl(this._remoteDataSource);
 
   @override
   Future<void> uploadUserDataToFireStore(
