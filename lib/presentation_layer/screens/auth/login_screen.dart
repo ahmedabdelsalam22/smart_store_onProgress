@@ -8,6 +8,7 @@ import '../../controller/auth_state.dart';
 import '../../controller/cubit/auth_cubit.dart';
 import '../../widgets/default_form_field.dart';
 import '../../widgets/main_button.dart';
+import '../../widgets/toast_view.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -45,8 +46,14 @@ class _LoginScreenState extends State<LoginScreen> {
           padding: const EdgeInsets.symmetric(vertical: 46.0, horizontal: 32.0),
           child: BlocConsumer<AuthCubit, AuthState>(
             listener: (context, state) {
-              if (state is LoginLoadingState)
-                Navigator.pushNamed(context, AppRoutes.btmNavScreenRoute);
+              if (state is LoginSuccessState) {
+                Navigator.pushReplacementNamed(
+                    context, AppRoutes.btmNavScreenRoute);
+              }
+              if (state is LoginErrorState) {
+                Components.showToast(
+                    message: 'login failed', color: Colors.red);
+              }
             },
             builder: (context, state) {
               var cubit = AuthCubit.get(context);
@@ -118,8 +125,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         onTap: () {
                           if (_formKey.currentState!.validate()) {
                             cubit.userLogin(
-                                emailAddress: _emailController.text,
-                                password: _passwordController.text);
+                              emailAddress: _emailController.text,
+                              password: _passwordController.text,
+                            );
                           }
                         },
                       ),
