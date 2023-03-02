@@ -31,3 +31,13 @@ class SignOutErrorState extends AuthState {
 
   SignOutErrorState(this.error);
 }
+
+class saveUserDataLoadingState extends AuthState {}
+
+class saveUserDataSuccessState extends AuthState {}
+
+class saveUserDataErrorState extends AuthState {
+  final String error;
+
+  saveUserDataErrorState(this.error);
+}

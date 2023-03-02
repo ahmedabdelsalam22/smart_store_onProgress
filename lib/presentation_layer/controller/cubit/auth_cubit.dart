@@ -22,14 +22,12 @@ class AuthCubit extends Cubit<AuthState> {
             emailAddress: emailAddress, password: password)
         .then((value) {
       emit(RegisterSuccessState());
-      /*_authRepository.sendEmailVerification();
-      if (isEmailVerified()) {
-        emit(RegisterSuccessState());
-      }*/
     }).catchError((onError) {
       emit(RegisterErrorState(onError.toString()));
     });
   }
+
+  void uploadUserToFireStore() {}
 
   void userLogin({
     required String emailAddress,
