@@ -53,6 +53,10 @@ class AuthCubit extends Cubit<AuthState> {
     });
   }
 
+  getUserDataFromFireStore() {
+    ///
+  }
+
   void userLogin({
     required String emailAddress,
     required String password,
