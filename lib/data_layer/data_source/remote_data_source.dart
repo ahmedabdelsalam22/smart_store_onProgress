@@ -5,12 +5,14 @@ abstract class RemoteDataSource {
   Future<User?> createUserWithEmailAndPassword(
       {required String emailAddress, required String password});
 
+  void sendEmailVerification();
+
   Future<User?> signInWithEmailAndPassword(
       {required String emailAddress, required String password});
 
-  void sendEmailVerification();
-
   Future<void> signOut();
+
+  bool isEmailVerified();
 }
 
 class RemoteDataSourceImpl implements RemoteDataSource {
@@ -25,6 +27,15 @@ class RemoteDataSourceImpl implements RemoteDataSource {
     );
     debugPrint(userCredential.user!.email);
     return userCredential.user;
+  }
+
+  @override
+  void sendEmailVerification() async {
+    if (!isEmailVerified()) {
+      await _firebaseAuth.currentUser!.sendEmailVerification();
+    } else {
+      return null;
+    }
   }
 
   @override
@@ -44,7 +55,5 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   }
 
   @override
-  void sendEmailVerification() {
-    _firebaseAuth.currentUser!.sendEmailVerification();
-  }
+  bool isEmailVerified() => _firebaseAuth.currentUser!.emailVerified;
 }
