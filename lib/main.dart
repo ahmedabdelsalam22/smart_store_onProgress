@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smart_store/presentation_layer/controller/cubit/auth_cubit.dart';
 
 import 'core/route_manager/app_routes.dart';
-import 'data_layer/data_source/remote_data_source.dart';
+import 'data_layer/data_source/auth_remote_data_source.dart';
 import 'domain_layer/repository/auth_repository.dart';
 import 'firebase_options.dart';
 
@@ -50,7 +50,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
-          AuthCubit(AuthRepositoryImpl(RemoteDataSourceImpl())),
+          AuthCubit(AuthRepositoryImpl(AuthRemoteDataSourceImpl())),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Lab Store',
