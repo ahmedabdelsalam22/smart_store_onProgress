@@ -1,8 +1,11 @@
 import '../../data_layer/data_source/firestore_remote_data_source.dart';
+import '../../data_layer/models/user_model.dart';
 
 abstract class FireStoreRepository {
   Future<void> uploadUserDataToFireStore(
       {required Map<String, dynamic> data, required String uid});
+
+  Future getUserDataFromFireStore({required String uid});
 }
 
 class FireStoreRepositoryImpl implements FireStoreRepository {
@@ -18,5 +21,16 @@ class FireStoreRepositoryImpl implements FireStoreRepository {
       doc: uid,
       data: data,
     );
+  }
+
+  @override
+  Future getUserDataFromFireStore({required String uid}) async {
+    final response = await _remoteDataSource.getDataFromFireStore(
+      collection: 'users',
+      doc: uid,
+    );
+    final result = response.data as List;
+    final userData = result.map((e) => UserModel.fromJson(e)).toList();
+    return userData;
   }
 }
