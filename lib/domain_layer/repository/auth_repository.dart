@@ -1,4 +1,4 @@
-import '../../data_layer/data_source/remote_data_source.dart';
+import '../../data_layer/data_source/auth_remote_data_source.dart';
 
 abstract class AuthRepository {
   Future<void> createUserWithEmailAndPassword(
@@ -15,7 +15,7 @@ abstract class AuthRepository {
 }
 
 class AuthRepositoryImpl implements AuthRepository {
-  final RemoteDataSource _remoteDataSource;
+  final AuthRemoteDataSource _remoteDataSource;
 
   AuthRepositoryImpl(this._remoteDataSource);
 

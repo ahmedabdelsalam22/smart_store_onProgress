@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 
-abstract class RemoteDataSource {
+abstract class AuthRemoteDataSource {
   Future<User?> createUserWithEmailAndPassword(
       {required String emailAddress, required String password});
 
@@ -15,7 +15,7 @@ abstract class RemoteDataSource {
   bool isEmailVerified();
 }
 
-class RemoteDataSourceImpl implements RemoteDataSource {
+class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   final _firebaseAuth = FirebaseAuth.instance;
 
   @override
