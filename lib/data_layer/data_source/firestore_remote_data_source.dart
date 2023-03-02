@@ -1,3 +1,11 @@
-abstract class FireStoreRemoteDataSource {}
+abstract class FireStoreRemoteDataSource {
+  Future<void> UploadDataToFireStore();
+}
 
-class FireStoreRemoteDataSourceImpl implements FireStoreRemoteDataSource {}
+class FireStoreRemoteDataSourceImpl implements FireStoreRemoteDataSource {
+  @override
+  Future<void> UploadDataToFireStore() {
+    // TODO: implement UploadDataToFireStore
+    throw UnimplementedError();
+  }
+}
