@@ -4,10 +4,14 @@ abstract class AuthRepository {
   Future<void> createUserWithEmailAndPassword(
       {required String emailAddress, required String password});
 
+  void sendEmailVerification();
+
   Future<void> signInWithEmailAndPassword(
       {required String emailAddress, required String password});
 
   Future<void> signOut();
+
+  bool isEmailVerified();
 }
 
 class AuthRepositoryImpl implements AuthRepository {
@@ -25,6 +29,11 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
+  void sendEmailVerification() {
+    _remoteDataSource.sendEmailVerification();
+  }
+
+  @override
   Future<void> signInWithEmailAndPassword(
       {required String emailAddress, required String password}) async {
     await _remoteDataSource.signInWithEmailAndPassword(
@@ -37,4 +46,7 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<void> signOut() async {
     return await _remoteDataSource.signOut();
   }
+
+  @override
+  bool isEmailVerified() => _remoteDataSource.isEmailVerified();
 }

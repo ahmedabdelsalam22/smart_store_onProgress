@@ -10,6 +10,8 @@ class AuthCubit extends Cubit<AuthState> {
 
   static AuthCubit get(context) => BlocProvider.of(context);
 
+  bool isEmailVerified() => _authRepository.isEmailVerified();
+
   void userRegister({
     required String emailAddress,
     required String password,
@@ -20,6 +22,10 @@ class AuthCubit extends Cubit<AuthState> {
             emailAddress: emailAddress, password: password)
         .then((value) {
       emit(RegisterSuccessState());
+      /*_authRepository.sendEmailVerification();
+      if (isEmailVerified()) {
+        emit(RegisterSuccessState());
+      }*/
     }).catchError((onError) {
       emit(RegisterErrorState(onError.toString()));
     });
