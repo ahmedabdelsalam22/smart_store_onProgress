@@ -41,3 +41,13 @@ class SaveUserDataErrorState extends AuthState {
 
   SaveUserDataErrorState(this.error);
 }
+
+class GetUserDataLoadingState extends AuthState {}
+
+class GetUserDataSuccessState extends AuthState {}
+
+class GetUserDataErrorState extends AuthState {
+  final String error;
+
+  GetUserDataErrorState(this.error);
+}
