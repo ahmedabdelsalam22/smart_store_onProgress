@@ -28,6 +28,7 @@ class AuthCubit extends Cubit<AuthState> {
             emailAddress: emailAddress, password: password)
         .then((value) {
       uploadUserToFireStore(name: name, email: emailAddress, uid: value!.uid);
+      getUserDataFromFireStore(uid: value.uid);
       emit(RegisterSuccessState());
     }).catchError((onError) {
       emit(RegisterErrorState(onError.toString()));
@@ -53,8 +54,14 @@ class AuthCubit extends Cubit<AuthState> {
     });
   }
 
-  getUserDataFromFireStore() {
-    ///
+  getUserDataFromFireStore({required String uid}) {
+    emit(GetUserDataLoadingState());
+    _fireStoreRepository.getUserDataFromFireStore(uid: uid).then((value) {
+      debugPrint("get user data from foreStore Success");
+      emit(GetUserDataSuccessState());
+    }).catchError((onError) {
+      emit(GetUserDataErrorState(onError.toString()));
+    });
   }
 
   void userLogin({
