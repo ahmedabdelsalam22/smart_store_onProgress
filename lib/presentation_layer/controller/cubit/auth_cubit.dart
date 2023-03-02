@@ -27,14 +27,15 @@ class AuthCubit extends Cubit<AuthState> {
         .createUserWithEmailAndPassword(
             emailAddress: emailAddress, password: password)
         .then((value) {
+      uploadUserToFireStore(name: name, email: emailAddress, uid: value!.uid);
       emit(RegisterSuccessState());
-      uploadUserToFireStore(name: name, email: emailAddress);
     }).catchError((onError) {
       emit(RegisterErrorState(onError.toString()));
     });
   }
 
-  void uploadUserToFireStore({required String name, required String email}) {
+  uploadUserToFireStore(
+      {required String name, required String email, required String uid}) {
     emit(SaveUserDataLoadingState());
 
     UserModel userModel = UserModel(
@@ -43,9 +44,7 @@ class AuthCubit extends Cubit<AuthState> {
     );
 
     _fireStoreRepository
-        .uploadUserDataToFireStore(
-      data: userModel.toMap(),
-    )
+        .uploadUserDataToFireStore(data: userModel.toMap(), uid: uid)
         .then((value) {
       debugPrint("user data saved to foreStore Success");
       emit(SaveUserDataSuccessState());
