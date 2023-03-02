@@ -1,12 +1,17 @@
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:smart_store/data_layer/models/user_model.dart';
 import 'package:smart_store/domain_layer/repository/auth_repository.dart';
 
+import '../../../domain_layer/repository/firestore_repository.dart';
 import '../auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
-  AuthCubit(this._authRepository) : super(AuthInitialState());
+  AuthCubit(this._authRepository, this._fireStoreRepository)
+      : super(AuthInitialState());
 
   final AuthRepository _authRepository;
+  final FireStoreRepository _fireStoreRepository;
 
   static AuthCubit get(context) => BlocProvider.of(context);
 
@@ -27,7 +32,25 @@ class AuthCubit extends Cubit<AuthState> {
     });
   }
 
-  void uploadUserToFireStore() {}
+  void uploadUserToFireStore({required String name, required String email}) {
+    emit(SaveUserDataLoadingState());
+
+    UserModel userModel = UserModel(
+      name: name,
+      email: email,
+    );
+
+    _fireStoreRepository
+        .uploadUserDataToFireStore(
+      data: userModel.toMap(),
+    )
+        .then((value) {
+      debugPrint("user data saved to foreStore Success");
+      emit(SaveUserDataSuccessState());
+    }).catchError((onError) {
+      emit(SaveUserDataErrorState(onError.toString()));
+    });
+  }
 
   void userLogin({
     required String emailAddress,

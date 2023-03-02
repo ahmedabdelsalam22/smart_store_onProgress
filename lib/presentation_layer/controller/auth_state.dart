@@ -32,12 +32,12 @@ class SignOutErrorState extends AuthState {
   SignOutErrorState(this.error);
 }
 
-class saveUserDataLoadingState extends AuthState {}
+class SaveUserDataLoadingState extends AuthState {}
 
-class saveUserDataSuccessState extends AuthState {}
+class SaveUserDataSuccessState extends AuthState {}
 
-class saveUserDataErrorState extends AuthState {
+class SaveUserDataErrorState extends AuthState {
   final String error;
 
-  saveUserDataErrorState(this.error);
+  SaveUserDataErrorState(this.error);
 }
