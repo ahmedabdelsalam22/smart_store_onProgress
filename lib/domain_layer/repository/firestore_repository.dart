@@ -1,4 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 import '../../data_layer/data_source/firestore_remote_data_source.dart';
+import '../../data_layer/models/product_model.dart';
 import '../../data_layer/models/user_model.dart';
 
 abstract class FireStoreRepository {
@@ -7,7 +10,7 @@ abstract class FireStoreRepository {
 
   Future getUserDataFromFireStore({required String uid});
 
-  // Future<void> getProducts();
+  Future<List<ProductModel>> getAllProducts();
 }
 
 class FireStoreRepositoryImpl implements FireStoreRepository {
@@ -36,16 +39,11 @@ class FireStoreRepositoryImpl implements FireStoreRepository {
     return userData;
   }
 
-/*  static List<ProductModel> productsList = [];
-
-  List<ProductModel> get getProductsList {
-    return productsList;
-  }
-
   @override
-  Future<void> getProducts() async {
-    await _remoteDataSource
-        .getProducts(collection: 'products')
-        .then((QuerySnapshot productSnapshot) {});
-  }*/
+  Future<List<ProductModel>> getAllProducts() async {
+    final snapshot =
+        await FirebaseFirestore.instance.collection('products').get();
+    final products = snapshot.docs.map((e) => ProductModel.fromMap(e)).toList();
+    return products;
+  }
 }

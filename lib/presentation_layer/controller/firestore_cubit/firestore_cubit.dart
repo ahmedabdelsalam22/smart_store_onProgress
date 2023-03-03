@@ -1,11 +1,13 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../data_layer/models/product_model.dart';
+import '../../../domain_layer/repository/firestore_repository.dart';
 import 'firestore_state.dart';
 
 class FireStoreCubit extends Cubit<FireStoreState> {
-  FireStoreCubit() : super(FireStoreInitialState());
+  FireStoreCubit(this._fireStoreRepository) : super(FireStoreInitialState());
+
+  final FireStoreRepository _fireStoreRepository;
 
   static FireStoreCubit get(context) => BlocProvider.of(context);
 
@@ -15,42 +17,23 @@ class FireStoreCubit extends Cubit<FireStoreState> {
     return _productsList;
   }
 
-/*
-  Future<void> fetchProducts() async {
+  Future getAllProducts() async {
     emit(FetchProductsLoadingState());
-    await FirebaseFirestore.instance
-        .collection('products')
-        .get()
-        .then((QuerySnapshot productSnapshot) {
-      _productsList = [];
-      productSnapshot.docs.forEach((element) {
-        _productsList.insert(
-            0,
-            ProductModel(
-              id: element.get('id'),
-              title: element.get('title'),
-              rate: element.get('rate'),
-              imageUrl: element.get('imageUrl'),
-              productCategoryName: element.get('productCategoryName'),
-              price: double.parse(element.get('price')),
-              salePrice: double.parse(element.get('salePrice')),
-              isOnSale: element.get('isOnSale'),
-              isDiscount: element.get('isDiscount'),
-              details: element.get('details'),
-            ));
-      });
+    await _fireStoreRepository.getAllProducts().then((value) {
+      _productsList = value;
       emit(FetchProductsSuccessState());
     }).catchError((onError) {
       emit(FetchProductsErrorState(onError.toString()));
     });
-  }*/
+  }
 
-  Future<List<ProductModel>> getAllProducts() async {
-    final snapshot =
-        await FirebaseFirestore.instance.collection('products').get();
-    final products = snapshot.docs.map((e) => ProductModel.fromMap(e)).toList();
-    _productsList = products;
-    return products;
+  List<ProductModel> findByCategory(String categoryName) {
+    List<ProductModel> categoryList = _productsList
+        .where((element) => element.productCategoryName
+            .toLowerCase()
+            .contains(categoryName.toLowerCase()))
+        .toList();
+    return categoryList;
   }
 
   List<ProductModel> get getOnSaleProducts {

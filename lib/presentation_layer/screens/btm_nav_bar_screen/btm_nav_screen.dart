@@ -65,7 +65,7 @@ class _BtmNavScreenState extends State<BtmNavScreen> {
 
   List<Widget> _buildScreens = [
     const HomeScreen(),
-    const CategoriesScreen(),
+    CategoriesScreen(),
     const CartScreen(),
     const FavoritesScreen(),
     const SettingScreen(),

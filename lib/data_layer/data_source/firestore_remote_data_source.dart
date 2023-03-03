@@ -11,7 +11,7 @@ abstract class FireStoreRemoteDataSource {
     String? doc,
   });
 
-  Future<void> getProducts({required String collection});
+  Future getProducts({required String collection});
 }
 
 class FireStoreRemoteDataSourceImpl implements FireStoreRemoteDataSource {
@@ -34,7 +34,7 @@ class FireStoreRemoteDataSourceImpl implements FireStoreRemoteDataSource {
   }
 
   @override
-  Future<void> getProducts({required String collection}) async {
+  Future getProducts({required String collection}) async {
     await _fireStore.collection(collection).get();
   }
 }

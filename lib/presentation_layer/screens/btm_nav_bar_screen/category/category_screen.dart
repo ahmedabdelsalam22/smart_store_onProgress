@@ -6,7 +6,7 @@ import 'custom_tapbar_button.dart';
 import 'tab_bar_view_body.dart';
 
 class CategoriesScreen extends StatelessWidget {
-  const CategoriesScreen({Key? key}) : super(key: key);
+  CategoriesScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

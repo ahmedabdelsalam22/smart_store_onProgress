@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:smart_store/data_layer/models/product_model.dart';
 
 import '../../../../core/style/color_manager.dart';
 import '../../../widgets/text_widget.dart';
@@ -8,7 +9,10 @@ import '../../../widgets/text_widget.dart';
 class BuildCatItem extends StatelessWidget {
   const BuildCatItem({
     Key? key,
+    required this.productModel,
   }) : super(key: key);
+
+  final ProductModel productModel;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +27,8 @@ class BuildCatItem extends StatelessWidget {
           child: Row(
             children: [
               Image(
-                image: AssetImage('assets/images/category/bag.jpg'),
+                //  image: AssetImage('assets/images/category/bag.jpg'),
+                image: NetworkImage(productModel.imageUrl),
                 height: 80,
                 width: 80,
                 fit: BoxFit.scaleDown,
@@ -37,7 +42,7 @@ class BuildCatItem extends StatelessWidget {
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.5,
                     child: TextWidget(
-                      text: 'title',
+                      text: productModel.title,
                       color: Colors.black,
                       textSize: 20,
                     ),
@@ -54,26 +59,28 @@ class BuildCatItem extends StatelessWidget {
                   SizedBox(
                     height: 5,
                   ),
-                  Row(
-                    children: [
-                      Text('68\$',
-                          style: const TextStyle(
-                            decoration: TextDecoration.lineThrough,
-                            color: Colors.grey,
-                          )),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        '50\$',
-                        style: TextStyle(color: ColorManager.primary),
-                      ),
-                    ],
-                  ),
-                  Text(
-                    '50\$',
-                    style: TextStyle(color: ColorManager.primary),
-                  ),
+                  if (productModel.isDiscount!)
+                    Row(
+                      children: [
+                        Text('${productModel.price}\$',
+                            style: const TextStyle(
+                              decoration: TextDecoration.lineThrough,
+                              color: Colors.grey,
+                            )),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        Text(
+                          '${productModel.salePrice}\$',
+                          style: TextStyle(color: ColorManager.primary),
+                        ),
+                      ],
+                    ),
+                  if (!productModel.isDiscount!)
+                    Text(
+                      '${productModel.price}\$',
+                      style: TextStyle(color: ColorManager.primary),
+                    ),
                 ],
               ),
               InkWell(
