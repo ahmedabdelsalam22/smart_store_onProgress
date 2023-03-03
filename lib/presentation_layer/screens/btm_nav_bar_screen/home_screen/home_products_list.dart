@@ -41,20 +41,21 @@ class productItemBuilder extends StatelessWidget {
                     fit: BoxFit.scaleDown,
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    padding: const EdgeInsets.all(5.0),
-                    decoration: BoxDecoration(
-                      color: ColorManager.primary,
-                      borderRadius: BorderRadius.circular(16),
+                if (productModel.isOnSale)
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      padding: const EdgeInsets.all(5.0),
+                      decoration: BoxDecoration(
+                        color: ColorManager.primary,
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: Center(
+                          child: Text(
+                        'on Sale',
+                      )),
                     ),
-                    child: Center(
-                        child: Text(
-                      'on Sale',
-                    )),
                   ),
-                ),
                 Positioned(
                   left: size.width * 0.23,
                   bottom: size.height * 0.011,
@@ -151,10 +152,11 @@ class productItemBuilder extends StatelessWidget {
                   ),
                 ],
               ),
-            Text(
-              '${productModel.salePrice}\$',
-              style: TextStyle(color: ColorManager.primary),
-            ),
+            if (!productModel.isDiscount!)
+              Text(
+                '${productModel.salePrice}\$',
+                style: TextStyle(color: ColorManager.primary),
+              ),
           ],
         ),
       ),
