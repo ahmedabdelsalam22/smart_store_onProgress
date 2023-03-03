@@ -27,6 +27,15 @@ class FireStoreCubit extends Cubit<FireStoreState> {
     });
   }
 
+  List<ProductModel> findByCategory(String categoryName) {
+    List<ProductModel> categoryList = _productsList
+        .where((element) => element.productCategoryName
+            .toLowerCase()
+            .contains(categoryName.toLowerCase()))
+        .toList();
+    return categoryList;
+  }
+
   List<ProductModel> get getOnSaleProducts {
     return _productsList.where((element) => element.isOnSale).toList();
   }
