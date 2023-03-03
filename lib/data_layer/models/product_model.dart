@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class ProductModel {
   final String id, title, imageUrl, productCategoryName, details;
   final double price, salePrice;
@@ -17,7 +19,6 @@ class ProductModel {
     required this.salePrice,
     required this.isOnSale,
   });
-/*
   Map<String, dynamic> toMap() {
     return {
       'id': id,
@@ -27,24 +28,24 @@ class ProductModel {
       'details': details,
       'price': price,
       'salePrice': salePrice,
-      'rate': rate,
       'isDiscount': isDiscount,
       'isOnSale': isOnSale
     };
   }
 
-  factory ProductModel.fromMap(Map<String, dynamic> map) {
+  factory ProductModel.fromMap(DocumentSnapshot<Map<String, dynamic>> map) {
+    final data = map.data()!;
+
     return ProductModel(
-      id: map['id']?.toInt(),
-      title: map['title'],
-      imageUrl: map['imageUrl'],
-      productCategoryName: map['productCategoryName'],
-      details: map['details'],
-      price: double.parse(map['price']),
-      salePrice: double.parse(map['salePrice']),
-      rate: map['rate'],
-      isDiscount: map['isDiscount'],
-      isOnSale: map['isOnSale'],
+      id: data['id'],
+      title: data['title'],
+      imageUrl: data['imageUrl'],
+      productCategoryName: data['productCategoryName'],
+      details: data['details'],
+      price: double.parse(data['price']),
+      salePrice: double.parse(data['salePrice']),
+      isDiscount: data['isDiscount'],
+      isOnSale: data['isOnSale'],
     );
-  }*/
+  }
 }

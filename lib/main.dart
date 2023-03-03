@@ -58,7 +58,7 @@ class _MyAppState extends State<MyApp> {
               AuthRepositoryImpl(AuthRemoteDataSourceImpl()),
               FireStoreRepositoryImpl(FireStoreRemoteDataSourceImpl())),
         ),
-        BlocProvider(create: (context) => FireStoreCubit()..fetchProducts()),
+        BlocProvider(create: (context) => FireStoreCubit()..getAllProducts()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

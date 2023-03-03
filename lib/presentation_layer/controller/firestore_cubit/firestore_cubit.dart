@@ -15,6 +15,7 @@ class FireStoreCubit extends Cubit<FireStoreState> {
     return _productsList;
   }
 
+/*
   Future<void> fetchProducts() async {
     emit(FetchProductsLoadingState());
     await FirebaseFirestore.instance
@@ -42,6 +43,14 @@ class FireStoreCubit extends Cubit<FireStoreState> {
     }).catchError((onError) {
       emit(FetchProductsErrorState(onError.toString()));
     });
+  }*/
+
+  Future<List<ProductModel>> getAllProducts() async {
+    final snapshot =
+        await FirebaseFirestore.instance.collection('products').get();
+    final products = snapshot.docs.map((e) => ProductModel.fromMap(e)).toList();
+    _productsList = products;
+    return products;
   }
 
   List<ProductModel> get getOnSaleProducts {
