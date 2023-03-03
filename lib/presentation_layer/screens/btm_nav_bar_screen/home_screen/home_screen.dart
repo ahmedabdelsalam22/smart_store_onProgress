@@ -72,7 +72,9 @@ class HomeScreen extends StatelessWidget {
                         productModel: cubit.getProducts[index],
                       );
                     },
-                    itemCount: cubit.getProducts.length,
+                    itemCount: cubit.getProducts.length > 5
+                        ? 4
+                        : cubit.getProducts.length,
                   ),
                 ),
               ],
