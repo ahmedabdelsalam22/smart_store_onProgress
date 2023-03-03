@@ -97,7 +97,8 @@ class SettingScreen extends StatelessWidget {
                 BlocConsumer<AuthCubit, AuthState>(
                   listener: (context, state) {
                     if (state is SignOutSuccessState)
-                      Navigator.pushNamed(context, AppRoutes.loginScreenRoute);
+                      Navigator.of(context, rootNavigator: true)
+                          .pushReplacementNamed(AppRoutes.loginScreenRoute);
 
                     /// TODO: this issue
                   },

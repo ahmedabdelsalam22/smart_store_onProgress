@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:smart_store/data_layer/models/product_model.dart';
 
 import '../../../../core/route_manager/app_routes.dart';
 import '../../../../core/style/color_manager.dart';
@@ -8,7 +9,10 @@ import '../../../../core/style/color_manager.dart';
 class productItemBuilder extends StatelessWidget {
   const productItemBuilder({
     Key? key,
+    required this.productModel,
   }) : super(key: key);
+
+  final ProductModel productModel;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +36,8 @@ class productItemBuilder extends StatelessWidget {
                   width: 145,
                   height: 170,
                   child: Image(
-                    image: AssetImage('assets/images/category/bag.jpg'),
+                    // image: AssetImage('assets/images/category/bag.jpg'),
+                    image: NetworkImage(productModel.imageUrl),
                     fit: BoxFit.scaleDown,
                   ),
                 ),
@@ -98,8 +103,7 @@ class productItemBuilder extends StatelessWidget {
             ),
             RatingBarIndicator(
               itemSize: 25.0,
-              //   rating: dummyProduct.rate?.toDouble() ?? 4.0,
-              rating: 4.1,
+              rating: productModel.rate!.toDouble(),
               itemBuilder: (context, _) => const Icon(
                 Icons.star,
                 color: Colors.amber,
@@ -112,7 +116,7 @@ class productItemBuilder extends StatelessWidget {
             SizedBox(
               width: 145,
               child: Text(
-                'title',
+                productModel.title,
                 maxLines: 2,
                 style: const TextStyle(
                   color: Colors.grey,
@@ -124,27 +128,32 @@ class productItemBuilder extends StatelessWidget {
               height: 3,
             ),
             Text(
-              'CategoryName',
+              productModel.productCategoryName,
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
             const SizedBox(
               height: 5,
             ),
-            Row(
-              children: [
-                Text('90\$',
-                    style: const TextStyle(
-                      decoration: TextDecoration.lineThrough,
-                      color: Colors.grey,
-                    )),
-                const SizedBox(
-                  width: 5,
-                ),
-                Text(
-                  '75\$',
-                  style: TextStyle(color: ColorManager.primary),
-                ),
-              ],
+            if (productModel.isDiscount!)
+              Row(
+                children: [
+                  Text('${productModel.price}\$',
+                      style: const TextStyle(
+                        decoration: TextDecoration.lineThrough,
+                        color: Colors.grey,
+                      )),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  Text(
+                    '${productModel.salePrice}\$',
+                    style: TextStyle(color: ColorManager.primary),
+                  ),
+                ],
+              ),
+            Text(
+              '${productModel.salePrice}\$',
+              style: TextStyle(color: ColorManager.primary),
             ),
           ],
         ),
