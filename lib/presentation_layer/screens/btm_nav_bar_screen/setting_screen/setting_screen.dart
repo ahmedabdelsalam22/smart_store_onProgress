@@ -150,12 +150,7 @@ class SettingScreen extends StatelessWidget {
     return ListTile(
       title: Text(
         title,
-        style: const TextStyle(fontSize: 24),
-      ),
-      subtitle: TextWidget(
-        text: subtitle ?? "",
-        color: color,
-        textSize: 18,
+        style: const TextStyle(fontSize: 19),
       ),
       leading: Icon(icon),
       trailing: const Icon(IconlyLight.arrowRight2),
