@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smart_store/presentation_layer/screens/btm_nav_bar_screen/home_screen/view_all_widget.dart';
 
 import '../../../../core/route_manager/app_routes.dart';
-import '../../../controller/firestore_cubit/firestore_cubit.dart';
-import '../../../controller/firestore_cubit/firestore_state.dart';
+import '../../../controller/firestore_cubit/product_cubit/product_cubit.dart';
+import '../../../controller/firestore_cubit/product_cubit/product_state.dart';
 import 'home_on_sale_list.dart';
 import 'home_products_list.dart';
 import 'home_swiper.dart';
@@ -16,12 +16,12 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
-    return BlocConsumer<FireStoreCubit, FireStoreState>(
+    return BlocConsumer<ProductCubit, ProductState>(
       listener: (context, state) {
         // TODO: implement listener
       },
       builder: (context, state) {
-        var cubit = FireStoreCubit.get(context);
+        var cubit = ProductCubit.get(context);
         return Scaffold(
           body: SingleChildScrollView(
             child: Column(

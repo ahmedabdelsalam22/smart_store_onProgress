@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../controller/firestore_cubit/firestore_cubit.dart';
-import '../../../controller/firestore_cubit/firestore_state.dart';
+import '../../../controller/firestore_cubit/product_cubit/product_cubit.dart';
+import '../../../controller/firestore_cubit/product_cubit/product_state.dart';
 import 'build_categ_item.dart';
 
 class TabBarViewBody extends StatelessWidget {
@@ -15,12 +15,12 @@ class TabBarViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<FireStoreCubit, FireStoreState>(
+    return BlocConsumer<ProductCubit, ProductState>(
       listener: (context, state) {
         // TODO: implement listener
       },
       builder: (context, state) {
-        var cubit = FireStoreCubit.get(context);
+        var cubit = ProductCubit.get(context);
         return Padding(
           padding: const EdgeInsets.only(top: 10),
           child: ListView.builder(

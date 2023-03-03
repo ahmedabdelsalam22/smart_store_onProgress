@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smart_store/data_layer/data_source/firestore_remote_data_source.dart';
 import 'package:smart_store/domain_layer/repository/firestore_repository.dart';
 import 'package:smart_store/presentation_layer/controller/auth_cubit/auth_cubit.dart';
-import 'package:smart_store/presentation_layer/controller/firestore_cubit/firestore_cubit.dart';
+import 'package:smart_store/presentation_layer/controller/firestore_cubit/product_cubit/product_cubit.dart';
 
 import 'core/route_manager/app_routes.dart';
 import 'data_layer/data_source/auth_remote_data_source.dart';
@@ -59,7 +59,7 @@ class _MyAppState extends State<MyApp> {
               FireStoreRepositoryImpl(FireStoreRemoteDataSourceImpl())),
         ),
         BlocProvider(
-            create: (context) => FireStoreCubit(
+            create: (context) => ProductCubit(
                 FireStoreRepositoryImpl(FireStoreRemoteDataSourceImpl()))
               ..getAllProducts()),
       ],
