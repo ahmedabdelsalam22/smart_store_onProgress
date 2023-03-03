@@ -1,15 +1,15 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:smart_store/presentation_layer/controller/firestore_cubit/product_cubit/product_state.dart';
 
-import '../../../data_layer/models/product_model.dart';
-import '../../../domain_layer/repository/firestore_repository.dart';
-import 'firestore_state.dart';
+import '../../../../data_layer/models/product_model.dart';
+import '../../../../domain_layer/repository/firestore_repository.dart';
 
-class FireStoreCubit extends Cubit<FireStoreState> {
-  FireStoreCubit(this._fireStoreRepository) : super(FireStoreInitialState());
+class ProductCubit extends Cubit<ProductState> {
+  ProductCubit(this._fireStoreRepository) : super(ProductInitialState());
 
   final FireStoreRepository _fireStoreRepository;
 
-  static FireStoreCubit get(context) => BlocProvider.of(context);
+  static ProductCubit get(context) => BlocProvider.of(context);
 
   static List<ProductModel> _productsList = [];
 

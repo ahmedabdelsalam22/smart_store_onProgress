@@ -45,6 +45,7 @@ class BuildCatItem extends StatelessWidget {
                       text: productModel.title,
                       color: Colors.black,
                       textSize: 20,
+                      maxLines: 2,
                     ),
                   ),
                   RatingBarIndicator(
