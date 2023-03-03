@@ -1,3 +1,4 @@
+import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -35,10 +36,9 @@ class productItemBuilder extends StatelessWidget {
                 SizedBox(
                   width: 145,
                   height: 170,
-                  child: Image(
-                    // image: AssetImage('assets/images/category/bag.jpg'),
-                    image: NetworkImage(productModel.imageUrl),
-                    fit: BoxFit.scaleDown,
+                  child: FancyShimmerImage(
+                    imageUrl: productModel.imageUrl,
+                    boxFit: BoxFit.scaleDown,
                   ),
                 ),
                 if (productModel.isOnSale)

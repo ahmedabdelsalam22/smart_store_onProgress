@@ -19,6 +19,7 @@ class ProductModel {
     required this.salePrice,
     required this.isOnSale,
   });
+
   Map<String, dynamic> toMap() {
     return {
       'id': id,

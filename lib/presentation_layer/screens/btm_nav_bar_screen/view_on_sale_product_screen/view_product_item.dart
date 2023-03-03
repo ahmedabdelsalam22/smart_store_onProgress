@@ -1,3 +1,4 @@
+import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -33,12 +34,13 @@ class ViewProductItem extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Row(
               children: [
-                Image(
-                  // image: AssetImage('assets/images/category/bag.jpg'),
-                  image: NetworkImage(productModel.imageUrl),
+                SizedBox(
                   height: 80,
                   width: 80,
-                  fit: BoxFit.scaleDown,
+                  child: FancyShimmerImage(
+                    imageUrl: productModel.imageUrl,
+                    boxFit: BoxFit.scaleDown,
+                  ),
                 ),
                 const SizedBox(
                   width: 20,
@@ -52,6 +54,7 @@ class ViewProductItem extends StatelessWidget {
                         text: productModel.title,
                         color: Colors.black,
                         textSize: 20,
+                        maxLines: 2,
                       ),
                     ),
                     TextWidget(
