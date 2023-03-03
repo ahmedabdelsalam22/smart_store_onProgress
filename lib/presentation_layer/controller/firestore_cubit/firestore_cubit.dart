@@ -45,4 +45,8 @@ class FireStoreCubit extends Cubit<FireStoreState> {
       emit(FetchProductsErrorState(onError.toString()));
     });
   }
+
+  List<ProductModel> get getOnSaleProducts {
+    return _productsList.where((element) => element.isOnSale).toList();
+  }
 }
