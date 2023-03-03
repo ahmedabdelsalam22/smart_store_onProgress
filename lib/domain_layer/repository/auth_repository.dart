@@ -8,7 +8,7 @@ abstract class AuthRepository {
 
   void sendEmailVerification();
 
-  Future<void> signInWithEmailAndPassword(
+  Future<User?> signInWithEmailAndPassword(
       {required String emailAddress, required String password});
 
   Future<void> signOut();
@@ -37,12 +37,13 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<void> signInWithEmailAndPassword(
+  Future<User?> signInWithEmailAndPassword(
       {required String emailAddress, required String password}) async {
-    await _remoteDataSource.signInWithEmailAndPassword(
+    final user = await _remoteDataSource.signInWithEmailAndPassword(
       emailAddress: emailAddress,
       password: password,
     );
+    return user;
   }
 
   @override

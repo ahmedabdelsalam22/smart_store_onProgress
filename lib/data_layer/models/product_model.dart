@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
-
-class ProductModel with ChangeNotifier {
+class ProductModel {
   final String id, title, imageUrl, productCategoryName;
   final double price, salePrice;
   final bool isOnSale;
