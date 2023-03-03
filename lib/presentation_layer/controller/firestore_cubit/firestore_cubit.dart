@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../data_layer/models/product_model.dart';
@@ -39,7 +38,6 @@ class FireStoreCubit extends Cubit<FireStoreState> {
               details: element.get('details'),
             ));
       });
-      debugPrint("Products loaded success");
       emit(FetchProductsSuccessState());
     }).catchError((onError) {
       emit(FetchProductsErrorState(onError.toString()));
