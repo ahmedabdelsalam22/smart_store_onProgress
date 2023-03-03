@@ -4,8 +4,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../core/route_manager/app_routes.dart';
 import '../../../core/style/color_manager.dart';
-import '../../controller/auth_state.dart';
-import '../../controller/cubit/auth_cubit.dart';
+import '../../controller/auth_cubit/auth_cubit.dart';
+import '../../controller/auth_cubit/auth_state.dart';
 import '../../widgets/default_form_field.dart';
 import '../../widgets/main_button.dart';
 import '../../widgets/toast_view.dart';

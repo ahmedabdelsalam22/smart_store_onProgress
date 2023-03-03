@@ -8,8 +8,10 @@ abstract class FireStoreRemoteDataSource {
 
   Future getDataFromFireStore({
     required String collection,
-    required String doc,
+    String? doc,
   });
+
+  Future<void> getProducts({required String collection});
 }
 
 class FireStoreRemoteDataSourceImpl implements FireStoreRemoteDataSource {
@@ -26,8 +28,13 @@ class FireStoreRemoteDataSourceImpl implements FireStoreRemoteDataSource {
   @override
   Future getDataFromFireStore({
     required String collection,
-    required String doc,
+    String? doc,
   }) async {
-    return await _fireStore.collection(collection).doc(doc).get();
+    return await _fireStore.collection(collection).doc(doc!).get();
+  }
+
+  @override
+  Future<void> getProducts({required String collection}) async {
+    await _fireStore.collection(collection).get();
   }
 }

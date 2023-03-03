@@ -4,7 +4,7 @@ import 'package:smart_store/data_layer/models/user_model.dart';
 import 'package:smart_store/domain_layer/repository/auth_repository.dart';
 
 import '../../../domain_layer/repository/firestore_repository.dart';
-import '../auth_state.dart';
+import 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
   AuthCubit(this._authRepository, this._fireStoreRepository)

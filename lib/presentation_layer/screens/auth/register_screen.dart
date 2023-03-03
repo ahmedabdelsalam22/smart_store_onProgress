@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:smart_store/presentation_layer/controller/cubit/auth_cubit.dart';
 
 import '../../../core/route_manager/app_routes.dart';
 import '../../../core/style/color_manager.dart';
-import '../../controller/auth_state.dart';
+import '../../controller/auth_cubit/auth_cubit.dart';
+import '../../controller/auth_cubit/auth_state.dart';
 import '../../widgets/back_widget.dart';
 import '../../widgets/default_form_field.dart';
 import '../../widgets/main_button.dart';

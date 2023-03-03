@@ -6,6 +6,8 @@ abstract class FireStoreRepository {
       {required Map<String, dynamic> data, required String uid});
 
   Future getUserDataFromFireStore({required String uid});
+
+  // Future<void> getProducts();
 }
 
 class FireStoreRepositoryImpl implements FireStoreRepository {
@@ -33,4 +35,17 @@ class FireStoreRepositoryImpl implements FireStoreRepository {
     final userData = result.map((e) => UserModel.fromJson(e)).toList();
     return userData;
   }
+
+/*  static List<ProductModel> productsList = [];
+
+  List<ProductModel> get getProductsList {
+    return productsList;
+  }
+
+  @override
+  Future<void> getProducts() async {
+    await _remoteDataSource
+        .getProducts(collection: 'products')
+        .then((QuerySnapshot productSnapshot) {});
+  }*/
 }

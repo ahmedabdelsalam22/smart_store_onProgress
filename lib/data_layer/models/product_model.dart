@@ -1,5 +1,5 @@
 class ProductModel {
-  final String id, title, imageUrl, productCategoryName;
+  final String id, title, imageUrl, productCategoryName, details;
   final double price, salePrice;
   final bool isOnSale;
   final int? rate;
@@ -12,6 +12,7 @@ class ProductModel {
     required this.title,
     required this.imageUrl,
     required this.productCategoryName,
+    required this.details,
     required this.price,
     required this.salePrice,
     required this.isOnSale,

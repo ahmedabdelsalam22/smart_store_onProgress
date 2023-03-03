@@ -8,8 +8,8 @@ import 'package:smart_store/presentation_layer/screens/btm_nav_bar_screen/settin
 import '../../../../core/firebase_constance.dart';
 import '../../../../core/route_manager/app_routes.dart';
 import '../../../../core/style/color_manager.dart';
-import '../../../controller/auth_state.dart';
-import '../../../controller/cubit/auth_cubit.dart';
+import '../../../controller/auth_cubit/auth_cubit.dart';
+import '../../../controller/auth_cubit/auth_state.dart';
 import '../../../widgets/text_widget.dart';
 
 class SettingScreen extends StatelessWidget {
