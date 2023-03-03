@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:smart_store/data_layer/models/product_model.dart';
 
 import '../../../../core/route_manager/app_routes.dart';
 import '../../../../core/style/color_manager.dart';
@@ -8,7 +9,10 @@ import '../../../../core/style/color_manager.dart';
 class SaleItemBuilder extends StatelessWidget {
   const SaleItemBuilder({
     Key? key,
+    required this.productModel,
   }) : super(key: key);
+
+  final ProductModel productModel;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +36,8 @@ class SaleItemBuilder extends StatelessWidget {
                   width: 145,
                   height: 170,
                   child: Image(
-                    image: AssetImage('assets/images/category/bag.jpg'),
+                    // image: AssetImage('assets/images/category/bag.jpg'),
+                    image: NetworkImage(productModel.imageUrl),
                     fit: BoxFit.scaleDown,
                   ),
                 ),
@@ -98,7 +103,7 @@ class SaleItemBuilder extends StatelessWidget {
             ),
             RatingBarIndicator(
               itemSize: 25.0,
-              rating: 4.5,
+              rating: productModel.rate!.toDouble(),
               itemBuilder: (context, _) => const Icon(
                 Icons.star,
                 color: Colors.amber,
@@ -111,7 +116,7 @@ class SaleItemBuilder extends StatelessWidget {
             SizedBox(
               width: 145,
               child: Text(
-                'title',
+                productModel.title,
                 style: const TextStyle(color: Colors.grey),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 3,
@@ -121,7 +126,7 @@ class SaleItemBuilder extends StatelessWidget {
               height: 3,
             ),
             Text(
-              'CategoryName',
+              productModel.productCategoryName,
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
             const SizedBox(
@@ -129,7 +134,7 @@ class SaleItemBuilder extends StatelessWidget {
             ),
             Row(
               children: [
-                Text('60\$',
+                Text('${productModel.price}\$',
                     style: const TextStyle(
                       decoration: TextDecoration.lineThrough,
                       color: Colors.grey,
@@ -138,7 +143,7 @@ class SaleItemBuilder extends StatelessWidget {
                   width: 5,
                 ),
                 Text(
-                  '35\$',
+                  '${productModel.salePrice}\$',
                   style: TextStyle(color: ColorManager.primary),
                 ),
               ],

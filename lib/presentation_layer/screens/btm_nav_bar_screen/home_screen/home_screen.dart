@@ -31,7 +31,7 @@ class HomeScreen extends StatelessWidget {
                   height: 20,
                 ),
                 ViewAllWidget(
-                  title: 'Sale',
+                  title: 'On Sale',
                   subtitle: 'Super summer sale',
                   onPressed: () {
                     Navigator.of(context, rootNavigator: true).pushNamed(
@@ -45,9 +45,12 @@ class HomeScreen extends StatelessWidget {
                     physics: const BouncingScrollPhysics(),
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
-                      return SaleItemBuilder();
+                      return SaleItemBuilder(
+                          productModel: cubit.getOnSaleProducts[index]);
                     },
-                    itemCount: 4,
+                    itemCount: cubit.getOnSaleProducts.length > 5
+                        ? 4
+                        : cubit.getOnSaleProducts.length,
                   ),
                 ),
                 ViewAllWidget(

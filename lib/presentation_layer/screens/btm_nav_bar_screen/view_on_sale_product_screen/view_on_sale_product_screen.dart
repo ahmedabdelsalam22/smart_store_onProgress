@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/style/color_manager.dart';
+import '../../../controller/firestore_cubit/firestore_cubit.dart';
+import '../../../controller/firestore_cubit/firestore_state.dart';
 import '../../../widgets/back_widget.dart';
 import 'view_product_item.dart';
 
@@ -24,11 +27,23 @@ class ViewAllOnSaleProductsScreen extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      body: ListView.builder(
-        itemBuilder: (context, index) {
-          return ViewProductItem();
+      body: BlocConsumer<FireStoreCubit, FireStoreState>(
+        listener: (context, state) {
+          // TODO: implement listener
         },
-        itemCount: 5,
+        builder: (context, state) {
+          var cubit = FireStoreCubit.get(context);
+          return ListView.builder(
+            itemBuilder: (context, index) {
+              return ViewProductItem(
+                productModel: cubit.getOnSaleProducts[index],
+              );
+            },
+            itemCount: cubit.getOnSaleProducts.length > 5
+                ? 4
+                : cubit.getOnSaleProducts.length,
+          );
+        },
       ),
     );
   }

@@ -4,12 +4,16 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 import '../../../../core/route_manager/app_routes.dart';
 import '../../../../core/style/color_manager.dart';
+import '../../../../data_layer/models/product_model.dart';
 import '../../../widgets/text_widget.dart';
 
 class ViewProductItem extends StatelessWidget {
   const ViewProductItem({
     Key? key,
+    required this.productModel,
   }) : super(key: key);
+
+  final ProductModel productModel;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +34,8 @@ class ViewProductItem extends StatelessWidget {
             child: Row(
               children: [
                 Image(
-                  image: AssetImage('assets/images/category/bag.jpg'),
+                  // image: AssetImage('assets/images/category/bag.jpg'),
+                  image: NetworkImage(productModel.imageUrl),
                   height: 80,
                   width: 80,
                   fit: BoxFit.scaleDown,
@@ -44,19 +49,19 @@ class ViewProductItem extends StatelessWidget {
                     SizedBox(
                       width: MediaQuery.of(context).size.width * 0.5,
                       child: TextWidget(
-                        text: 'title',
+                        text: productModel.title,
                         color: Colors.black,
                         textSize: 20,
                       ),
                     ),
                     TextWidget(
-                      text: 'productCategoryName',
+                      text: productModel.productCategoryName,
                       color: Colors.grey,
                       textSize: 15,
                     ),
                     RatingBarIndicator(
                       itemSize: 20.0,
-                      rating: 3.5,
+                      rating: productModel.rate!.toDouble(),
                       itemBuilder: (context, _) => const Icon(
                         Icons.star,
                         color: Colors.amber,
@@ -68,7 +73,7 @@ class ViewProductItem extends StatelessWidget {
                     ),
                     Row(
                       children: [
-                        Text('50\$',
+                        Text('${productModel.price}\$',
                             style: const TextStyle(
                               decoration: TextDecoration.lineThrough,
                               color: Colors.grey,
@@ -77,7 +82,7 @@ class ViewProductItem extends StatelessWidget {
                           width: 5,
                         ),
                         Text(
-                          '40\$',
+                          '${productModel.salePrice}\$',
                           style: TextStyle(color: ColorManager.primary),
                         ),
                       ],
