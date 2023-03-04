@@ -70,7 +70,7 @@ class productItemBuilder extends StatelessWidget {
                             shape: BoxShape.circle,
                             color: Colors.grey.withOpacity(0.5)),
                         child: Icon(
-                          IconlyBold.heart,
+                          IconlyLight.heart,
                           size: 30,
                           color: ColorManager.primary,
                         ),
@@ -92,7 +92,7 @@ class productItemBuilder extends StatelessWidget {
                             shape: BoxShape.circle,
                             color: Colors.grey.withOpacity(0.5)),
                         child: Icon(
-                          IconlyBold.buy,
+                          IconlyLight.buy,
                           size: 30,
                           color: ColorManager.primary,
                         ),
