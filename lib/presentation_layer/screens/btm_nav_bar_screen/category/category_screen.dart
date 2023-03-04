@@ -11,7 +11,7 @@ class CategoriesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 6,
+      length: 7,
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
@@ -58,6 +58,11 @@ class CategoriesScreen extends StatelessWidget {
               ),
               Tab(
                 child: CustomTabBarBtn(
+                  title: 'Keyboards',
+                ),
+              ),
+              Tab(
+                child: CustomTabBarBtn(
                   title: 'Hard Drives',
                 ),
               ),
@@ -88,8 +93,11 @@ class CategoriesScreen extends StatelessWidget {
             ),
             //Hard Drives
             TabBarViewBody(
-              categoryName: 'Hard Drives',
+              categoryName: 'Keyboards',
             ),
+            TabBarViewBody(
+              categoryName: 'Hard Drives',
+            )
           ],
         ),
       ),
