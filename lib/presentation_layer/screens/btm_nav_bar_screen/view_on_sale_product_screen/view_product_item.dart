@@ -106,7 +106,7 @@ class ViewProductItem extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(4.0),
                       child: Icon(
-                        IconlyBold.heart,
+                        IconlyLight.heart,
                         size: 28,
                         color: ColorManager.primary,
                       ),
@@ -126,7 +126,7 @@ class ViewProductItem extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(4.0),
                       child: Icon(
-                        IconlyBold.buy,
+                        IconlyLight.buy,
                         size: 28,
                         color: ColorManager.primary,
                       ),
