@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 import '../../../../core/style/color_manager.dart';
+import '../../../../data_layer/models/cart_model.dart';
+import '../../../controller/firestore_cubit/product_cubit/product_cubit.dart';
 import '../../../widgets/text_widget.dart';
 
 class CartListItemWidget extends StatelessWidget {
@@ -10,6 +13,13 @@ class CartListItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var productProvider = BlocProvider.of<ProductCubit>(context);
+
+    CartModel? cartModel;
+
+    final getCurrentProduct =
+        productProvider.findProductById(cartModel!.productId);
+
     return Padding(
       padding: const EdgeInsets.all(5.0),
       child: Material(
@@ -23,7 +33,8 @@ class CartListItemWidget extends StatelessWidget {
               Stack(
                 children: [
                   Image(
-                    image: AssetImage('assets/images/category/bag.jpg'),
+                    //  image: AssetImage('assets/images/category/bag.jpg'),
+                    image: NetworkImage(getCurrentProduct.imageUrl),
                     height: 80,
                     width: 80,
                     fit: BoxFit.scaleDown,
@@ -53,13 +64,13 @@ class CartListItemWidget extends StatelessWidget {
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.5,
                     child: TextWidget(
-                      text: 'title',
+                      text: getCurrentProduct.title,
                       color: Colors.black,
                       textSize: 20,
                     ),
                   ),
                   TextWidget(
-                    text: 'CategoryName',
+                    text: getCurrentProduct.productCategoryName,
                     color: Colors.grey,
                     textSize: 15,
                   ),
@@ -75,21 +86,26 @@ class CartListItemWidget extends StatelessWidget {
                   SizedBox(
                     height: 5,
                   ),
-                  Row(
-                    children: [
-                      Text('54\$',
-                          style: const TextStyle(
-                            decoration: TextDecoration.lineThrough,
-                            color: Colors.grey,
-                          )),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        '50\$',
-                        style: TextStyle(color: ColorManager.primary),
-                      ),
-                    ],
+                  if (getCurrentProduct.isDiscount!)
+                    Row(
+                      children: [
+                        Text('${getCurrentProduct.price}\$',
+                            style: const TextStyle(
+                              decoration: TextDecoration.lineThrough,
+                              color: Colors.grey,
+                            )),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        Text(
+                          '${getCurrentProduct.salePrice}\$',
+                          style: TextStyle(color: ColorManager.primary),
+                        ),
+                      ],
+                    ),
+                  Text(
+                    '${getCurrentProduct.salePrice}\$',
+                    style: TextStyle(color: ColorManager.primary),
                   ),
                 ],
               ),

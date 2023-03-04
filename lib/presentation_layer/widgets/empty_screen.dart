@@ -8,10 +8,9 @@ class EmptyScreen extends StatelessWidget {
     Key? key,
     required this.imPath,
     required this.title,
-    required this.buttonText,
   }) : super(key: key);
 
-  final String imPath, title, buttonText;
+  final String imPath, title;
 
   @override
   Widget build(BuildContext context) {
