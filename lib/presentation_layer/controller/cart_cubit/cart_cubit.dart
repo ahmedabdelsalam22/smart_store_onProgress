@@ -11,11 +11,10 @@ class CartCubit extends Cubit<CartState> {
 
   static CartCubit get(context) => BlocProvider.of(context);
 
+  Map<String, CartModel> _cartItems = {};
   Map<String, CartModel> get getCartItems {
     return _cartItems;
   }
-
-  Map<String, CartModel> _cartItems = {};
 
   final userCollection = FirebaseFirestore.instance.collection('users');
 
