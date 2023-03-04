@@ -69,7 +69,8 @@ class SaleItemBuilder extends StatelessWidget {
                             shape: BoxShape.circle,
                             color: Colors.grey.withOpacity(0.5)),
                         child: Icon(
-                          IconlyBold.heart,
+                          /// TODO toggle icon bold amd light
+                          IconlyLight.heart,
                           size: 30,
                           color: ColorManager.primary,
                         ),
@@ -91,7 +92,8 @@ class SaleItemBuilder extends StatelessWidget {
                             shape: BoxShape.circle,
                             color: Colors.grey.withOpacity(0.5)),
                         child: Icon(
-                          IconlyBold.buy,
+                          /// TODO toggle icon bold amd light
+                          IconlyLight.buy,
                           size: 30,
                           color: ColorManager.primary,
                         ),
