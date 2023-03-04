@@ -132,21 +132,26 @@ class SaleItemBuilder extends StatelessWidget {
             const SizedBox(
               height: 5,
             ),
-            Row(
-              children: [
-                Text('${productModel.price}\$',
-                    style: const TextStyle(
-                      decoration: TextDecoration.lineThrough,
-                      color: Colors.grey,
-                    )),
-                const SizedBox(
-                  width: 5,
-                ),
-                Text(
-                  '${productModel.salePrice}\$',
-                  style: TextStyle(color: ColorManager.primary),
-                ),
-              ],
+            if (productModel.isDiscount!)
+              Row(
+                children: [
+                  Text('${productModel.price}\$',
+                      style: const TextStyle(
+                        decoration: TextDecoration.lineThrough,
+                        color: Colors.grey,
+                      )),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  Text(
+                    '${productModel.salePrice}\$',
+                    style: TextStyle(color: ColorManager.primary),
+                  ),
+                ],
+              ),
+            Text(
+              '${productModel.salePrice}\$',
+              style: TextStyle(color: ColorManager.primary),
             ),
           ],
         ),
