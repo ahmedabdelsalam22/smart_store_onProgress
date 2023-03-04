@@ -36,6 +36,10 @@ class ProductCubit extends Cubit<ProductState> {
     return categoryList;
   }
 
+  ProductModel findProductById(String productId) {
+    return _productsList.firstWhere((element) => element.id == productId);
+  }
+
   List<ProductModel> searchQuery(String searchText) {
     List<ProductModel> searchList = _productsList
         .where((element) => element.title.contains(searchText.toLowerCase()))

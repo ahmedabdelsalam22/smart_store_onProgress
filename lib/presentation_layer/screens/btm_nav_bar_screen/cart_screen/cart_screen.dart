@@ -6,6 +6,7 @@ import '../../../../core/style/color_manager.dart';
 import '../../../controller/cart_cubit/cart_cubit.dart';
 import '../../../controller/cart_cubit/cart_state.dart';
 import '../../../widgets/check_out_widget.dart';
+import '../../../widgets/empty_screen.dart';
 import '../../../widgets/global_methode.dart';
 import '../../../widgets/text_widget.dart';
 import 'cart_list_item_widget.dart';
@@ -21,8 +22,15 @@ class CartScreen extends StatelessWidget {
       },
       builder: (context, state) {
         var cubit = CartCubit.get(context);
-        var cartList = cubit.getCartItems;
 
+        final cartList = cubit.getCartItems.values.toList().reversed.toList();
+
+        if (cartList.isEmpty) {
+          return const EmptyScreen(
+            imPath: 'assets/images/empty_screen/box.png',
+            title: 'Your cart is empty!',
+          );
+        }
         return Scaffold(
           backgroundColor: ColorManager.backGround,
           appBar: AppBar(
