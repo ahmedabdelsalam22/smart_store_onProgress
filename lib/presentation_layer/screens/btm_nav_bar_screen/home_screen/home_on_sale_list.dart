@@ -1,9 +1,13 @@
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:smart_store/data_layer/models/product_model.dart';
+import 'package:smart_store/presentation_layer/controller/cart_cubit/cart_cubit.dart';
+import 'package:smart_store/presentation_layer/controller/firestore_cubit/product_cubit/product_cubit.dart';
 
+import '../../../../core/global_method.dart';
 import '../../../../core/route_manager/app_routes.dart';
 import '../../../../core/style/color_manager.dart';
 
@@ -18,6 +22,11 @@ class SaleItemBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+
+    final cartCubit = BlocProvider.of<CartCubit>(context);
+    final productProvider = BlocProvider.of<ProductCubit>(context);
+
+    bool _isInCart = cartCubit.getCartItems.containsKey(productModel.id);
 
     return InkWell(
       onTap: () {
@@ -82,7 +91,14 @@ class SaleItemBuilder extends StatelessWidget {
                   left: size.width * 0.12,
                   bottom: size.height * 0.01,
                   child: InkWell(
-                    onTap: () {},
+                    onTap: () async {
+                      ///
+                      /* if (_isInCart) {
+                        cartCubit.removeOneItem(productId: productModel.id);
+                      }*/
+                      await GlobalMethod.addToCart(productId: productModel.id);
+                      await cartCubit.getCart();
+                    },
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Container(
@@ -92,8 +108,7 @@ class SaleItemBuilder extends StatelessWidget {
                             shape: BoxShape.circle,
                             color: Colors.grey.withOpacity(0.5)),
                         child: Icon(
-                          /// TODO toggle icon bold amd light
-                          IconlyLight.buy,
+                          _isInCart ? IconlyBold.buy : IconlyLight.buy,
                           size: 30,
                           color: ColorManager.primary,
                         ),

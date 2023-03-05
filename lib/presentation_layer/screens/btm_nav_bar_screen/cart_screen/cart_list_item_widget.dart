@@ -5,20 +5,24 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 import '../../../../core/style/color_manager.dart';
 import '../../../../data_layer/models/cart_model.dart';
+import '../../../controller/cart_cubit/cart_cubit.dart';
 import '../../../controller/firestore_cubit/product_cubit/product_cubit.dart';
 import '../../../widgets/text_widget.dart';
 
 class CartListItemWidget extends StatelessWidget {
-  const CartListItemWidget({Key? key}) : super(key: key);
+  const CartListItemWidget(
+      {Key? key, required this.cartList, required this.cubit})
+      : super(key: key);
+
+  final CartModel cartList;
+  final CartCubit cubit;
 
   @override
   Widget build(BuildContext context) {
     var productProvider = BlocProvider.of<ProductCubit>(context);
 
-    CartModel? cartModel;
-
     final getCurrentProduct =
-        productProvider.findProductById(cartModel!.productId);
+        productProvider.findProductById(cartList.productId);
 
     return Padding(
       padding: const EdgeInsets.all(5.0),
@@ -113,7 +117,9 @@ class CartListItemWidget extends StatelessWidget {
                 width: 5,
               ),
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  cubit.removeOneItem(productId: cartList.productId);
+                },
                 child: Container(
                   decoration: BoxDecoration(
                       shape: BoxShape.circle,

@@ -22,7 +22,6 @@ class CartScreen extends StatelessWidget {
       },
       builder: (context, state) {
         var cubit = CartCubit.get(context);
-
         final cartList = cubit.getCartItems.values.toList().reversed.toList();
 
         if (cartList.isEmpty) {
@@ -49,7 +48,9 @@ class CartScreen extends StatelessWidget {
                   GlobalMethode.warningDialog(
                     title: 'Empty your cart',
                     subtitle: 'Are you sure?',
-                    fct: () async {},
+                    fct: () async {
+                      cubit.clearCart();
+                    },
                     context: context,
                   );
                 },
@@ -66,7 +67,10 @@ class CartScreen extends StatelessWidget {
               Expanded(
                 child: ListView.builder(
                   itemBuilder: (ctx, index) {
-                    return CartListItemWidget();
+                    return CartListItemWidget(
+                      cartList: cartList[index],
+                      cubit: cubit,
+                    );
                   },
                   itemCount: cartList.length,
                 ),
