@@ -71,6 +71,7 @@ class CartListItemWidget extends StatelessWidget {
                       text: getCurrentProduct.title,
                       color: Colors.black,
                       textSize: 20,
+                      maxLines: 2,
                     ),
                   ),
                   TextWidget(
@@ -118,7 +119,8 @@ class CartListItemWidget extends StatelessWidget {
               ),
               InkWell(
                 onTap: () {
-                  cubit.removeOneItem(productId: cartList.productId);
+                  cubit.removeOneItem(
+                      productId: cartList.productId, cartId: cartList.id);
                 },
                 child: Container(
                   decoration: BoxDecoration(
