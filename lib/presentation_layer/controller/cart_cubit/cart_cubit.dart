@@ -20,6 +20,7 @@ class CartCubit extends Cubit<CartState> {
   final userCollection = FirebaseFirestore.instance.collection('users');
 
   Future<void> getCart() async {
+    emit(GetCartLoadingState());
     final User? user = FireBaseConstance.currentUser;
 
     final DocumentSnapshot userDoc = await userCollection.doc(user!.uid).get();
@@ -36,30 +37,41 @@ class CartCubit extends Cubit<CartState> {
                 productId: userDoc.get('userCart')[i]['productId'],
               ));
     }
+    emit(GetCartSuccessState());
   }
 
-  void addProductToCart({required String productId}) {
-    _cartItems.putIfAbsent(
-      productId,
-      () => CartModel(
-        id: DateTime.now().toString(),
-        productId: productId,
-      ),
-    );
-  }
-
-// remove one item from cart
+  // remove one item from cart
   Future<void> removeOneItem({
+    required String cartId,
     required String productId,
   }) async {
+    final User? user = FireBaseConstance.currentUser;
+
+    await userCollection.doc(user!.uid).update({
+      'userCart': FieldValue.arrayRemove([
+        {
+          'cartId': cartId,
+          'productId': productId,
+        }
+      ]),
+    });
+
     _cartItems.remove(productId);
+    await getCart();
+    emit(RemoveFromCartSuccessState());
   }
 
-  void clearCart() {
+  Future<void> clearOnlineCart() async {
+    final User? user = FireBaseConstance.currentUser;
+
+    await userCollection.doc(user!.uid).update({
+      'userCart': [],
+    });
+    _cartItems.clear();
+  }
+
+  // delete or clear all items in one click ..
+  void clearLocalCart() {
     _cartItems.clear();
   }
 }
-
-/*
-
-*/

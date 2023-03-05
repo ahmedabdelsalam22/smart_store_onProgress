@@ -22,6 +22,7 @@ class HomeScreen extends StatelessWidget {
       },
       builder: (context, state) {
         var cubit = ProductCubit.get(context);
+
         return Scaffold(
           body: SingleChildScrollView(
             child: Column(
@@ -46,7 +47,8 @@ class HomeScreen extends StatelessWidget {
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
                       return SaleItemBuilder(
-                          productModel: cubit.getOnSaleProducts[index]);
+                        productModel: cubit.getOnSaleProducts[index],
+                      );
                     },
                     itemCount: cubit.getOnSaleProducts.length > 5
                         ? 4

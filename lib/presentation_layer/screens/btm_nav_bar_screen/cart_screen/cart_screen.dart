@@ -49,7 +49,8 @@ class CartScreen extends StatelessWidget {
                     title: 'Empty your cart',
                     subtitle: 'Are you sure?',
                     fct: () async {
-                      cubit.clearCart();
+                      await cubit.clearOnlineCart();
+                      cubit.clearLocalCart();
                     },
                     context: context,
                   );
