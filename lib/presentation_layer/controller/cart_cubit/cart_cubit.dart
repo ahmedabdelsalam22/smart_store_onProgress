@@ -12,6 +12,7 @@ class CartCubit extends Cubit<CartState> {
   static CartCubit get(context) => BlocProvider.of(context);
 
   Map<String, CartModel> _cartItems = {};
+
   Map<String, CartModel> get getCartItems {
     return _cartItems;
   }
@@ -31,9 +32,34 @@ class CartCubit extends Cubit<CartState> {
       _cartItems.putIfAbsent(
           userDoc.get('userCart')[i]['productId'],
           () => CartModel(
-              id: userDoc.get('userCart')[i]['cartId'],
-              productId: userDoc.get('userCart')[i]['productId'],
-              quantity: userDoc.get('userCart')[i]['quantity']));
+                id: userDoc.get('userCart')[i]['cartId'],
+                productId: userDoc.get('userCart')[i]['productId'],
+              ));
     }
   }
+
+  void addProductToCart({required String productId}) {
+    _cartItems.putIfAbsent(
+      productId,
+      () => CartModel(
+        id: DateTime.now().toString(),
+        productId: productId,
+      ),
+    );
+  }
+
+// remove one item from cart
+  Future<void> removeOneItem({
+    required String productId,
+  }) async {
+    _cartItems.remove(productId);
+  }
+
+  void clearCart() {
+    _cartItems.clear();
+  }
 }
+
+/*
+
+*/
