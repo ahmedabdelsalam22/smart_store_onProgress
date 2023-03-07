@@ -97,25 +97,7 @@ class ViewProductItem extends StatelessWidget {
                     ),
                   ],
                 ),
-                InkWell(
-                  onTap: () {},
-                  child: Container(
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.grey.withOpacity(0.5)),
-                    child: Padding(
-                      padding: const EdgeInsets.all(4.0),
-                      child: Icon(
-                        IconlyLight.heart,
-                        size: 28,
-                        color: ColorManager.primary,
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: 5,
-                ),
+                Spacer(),
                 InkWell(
                   onTap: () {},
                   child: Container(
