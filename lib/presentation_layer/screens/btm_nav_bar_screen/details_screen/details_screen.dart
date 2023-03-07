@@ -131,24 +131,8 @@ class ProductDetailsScreen extends StatelessWidget {
               ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 10, left: 18, right: 18),
-            child: Text(
-              productModel.title,
-              maxLines: 2,
-              style: TextStyle(overflow: TextOverflow.ellipsis, fontSize: 20),
-              textAlign: TextAlign.start,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 10, left: 18, right: 18),
-            child: Text(
-              productModel.details,
-              maxLines: 5,
-              style: TextStyle(overflow: TextOverflow.ellipsis, fontSize: 16),
-              textAlign: TextAlign.start,
-            ),
-          ),
+          defaultText(text: productModel.title, size: 18),
+          defaultText(text: productModel.details),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
             child: Align(
@@ -201,6 +185,18 @@ class ProductDetailsScreen extends StatelessWidget {
             },
           ),
         ],
+      ),
+    );
+  }
+
+  Widget defaultText({required String text, double size = 16}) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 10, left: 18, right: 18),
+      child: Text(
+        text,
+        maxLines: 5,
+        style: TextStyle(overflow: TextOverflow.ellipsis, fontSize: 16),
+        textAlign: TextAlign.start,
       ),
     );
   }
