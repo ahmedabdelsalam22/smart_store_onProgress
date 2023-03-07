@@ -65,29 +65,6 @@ class SaleItemBuilder extends StatelessWidget {
                 Positioned(
                   left: size.width * 0.23,
                   bottom: size.height * 0.011,
-                  child: InkWell(
-                    onTap: () {},
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        height: 40,
-                        width: 40,
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.grey.withOpacity(0.5)),
-                        child: Icon(
-                          /// TODO toggle icon bold amd light
-                          IconlyLight.heart,
-                          size: 30,
-                          color: ColorManager.primary,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left: size.width * 0.12,
-                  bottom: size.height * 0.01,
                   child: BlocConsumer<CartCubit, CartState>(
                     listener: (context, state) {
                       // TODO: implement listener
