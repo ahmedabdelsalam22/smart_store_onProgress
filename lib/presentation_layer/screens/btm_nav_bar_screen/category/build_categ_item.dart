@@ -27,7 +27,6 @@ class BuildCatItem extends StatelessWidget {
           child: Row(
             children: [
               Image(
-                //  image: AssetImage('assets/images/category/bag.jpg'),
                 image: NetworkImage(productModel.imageUrl),
                 height: 80,
                 width: 80,
@@ -84,25 +83,10 @@ class BuildCatItem extends StatelessWidget {
                     ),
                 ],
               ),
-              InkWell(
-                onTap: () {},
-                child: Container(
-                  decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.grey.withOpacity(0.5)),
-                  child: Padding(
-                    padding: const EdgeInsets.all(4.0),
-                    child: Icon(
-                      IconlyBold.heart,
-                      size: 26,
-                      color: ColorManager.primary,
-                    ),
-                  ),
-                ),
-              ),
               SizedBox(
                 width: 5,
               ),
+              Spacer(),
               InkWell(
                 onTap: () {},
                 child: Container(
