@@ -145,6 +145,7 @@ class SaleItemBuilder extends StatelessWidget {
             const SizedBox(
               height: 5,
             ),
+            Spacer(),
             if (productModel.isDiscount!)
               Row(
                 children: [
@@ -162,9 +163,13 @@ class SaleItemBuilder extends StatelessWidget {
                   ),
                 ],
               ),
-            Text(
-              '${productModel.salePrice}\$',
-              style: TextStyle(color: ColorManager.primary),
+            if (!productModel.isDiscount!)
+              Text(
+                '${productModel.salePrice}\$',
+                style: TextStyle(color: ColorManager.primary),
+              ),
+            const SizedBox(
+              height: 30,
             ),
           ],
         ),

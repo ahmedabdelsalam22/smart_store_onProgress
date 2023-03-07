@@ -91,10 +91,11 @@ class ViewProductItem extends StatelessWidget {
                           ),
                         ],
                       ),
-                    Text(
-                      '${productModel.salePrice}\$',
-                      style: TextStyle(color: ColorManager.primary),
-                    ),
+                    if (!productModel.isDiscount!)
+                      Text(
+                        '${productModel.salePrice}\$',
+                        style: TextStyle(color: ColorManager.primary),
+                      ),
                   ],
                 ),
                 Spacer(),

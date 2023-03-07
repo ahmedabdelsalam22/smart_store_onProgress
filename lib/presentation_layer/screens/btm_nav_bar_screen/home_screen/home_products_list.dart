@@ -113,6 +113,7 @@ class productItemBuilder extends StatelessWidget {
             const SizedBox(
               height: 5,
             ),
+            Spacer(),
             if (productModel.isDiscount!)
               Row(
                 children: [
@@ -135,6 +136,9 @@ class productItemBuilder extends StatelessWidget {
                 '${productModel.salePrice}\$',
                 style: TextStyle(color: ColorManager.primary),
               ),
+            const SizedBox(
+              height: 45,
+            ),
           ],
         ),
       ),
