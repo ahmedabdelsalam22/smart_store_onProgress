@@ -53,7 +53,7 @@ class ProductDetailsScreen extends StatelessWidget {
             image: NetworkImage(
               productModel.imageUrl,
             ),
-            height: size.height * 0.5,
+            height: size.height * 0.3,
             width: double.infinity,
             fit: BoxFit.scaleDown,
           ),
@@ -101,20 +101,10 @@ class ProductDetailsScreen extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      productModel.productCategoryName,
-                      style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: ColorManager.primary),
-                    ),
-                    Text(
-                      productModel.title,
-                      style: Theme.of(context).textTheme.caption!.copyWith(),
-                    ),
-                  ],
+                Text(
+                  productModel.productCategoryName,
+                  style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                      fontWeight: FontWeight.bold, color: ColorManager.primary),
                 ),
                 if (productModel.isDiscount!)
                   Row(
@@ -141,14 +131,38 @@ class ProductDetailsScreen extends StatelessWidget {
               ],
             ),
           ),
-          RatingBarIndicator(
-            itemSize: 25.0,
-            rating: productModel.rate!.toDouble(),
-            itemBuilder: (context, _) => const Icon(
-              Icons.star,
-              color: Colors.amber,
+          Padding(
+            padding: const EdgeInsets.only(top: 10, left: 18, right: 18),
+            child: Text(
+              productModel.title,
+              maxLines: 2,
+              style: TextStyle(overflow: TextOverflow.ellipsis, fontSize: 20),
+              textAlign: TextAlign.start,
             ),
-            direction: Axis.horizontal,
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 10, left: 18, right: 18),
+            child: Text(
+              productModel.details,
+              maxLines: 5,
+              style: TextStyle(overflow: TextOverflow.ellipsis, fontSize: 16),
+              textAlign: TextAlign.start,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
+            child: Align(
+              alignment: Alignment.topLeft,
+              child: RatingBarIndicator(
+                itemSize: 25.0,
+                rating: productModel.rate!.toDouble(),
+                itemBuilder: (context, _) => const Icon(
+                  Icons.star,
+                  color: Colors.amber,
+                ),
+                direction: Axis.horizontal,
+              ),
+            ),
           ),
           const Spacer(),
           BlocConsumer<CartCubit, CartState>(
