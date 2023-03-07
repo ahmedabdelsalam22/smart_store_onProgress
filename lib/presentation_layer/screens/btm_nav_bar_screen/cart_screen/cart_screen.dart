@@ -5,7 +5,6 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import '../../../../core/style/color_manager.dart';
 import '../../../controller/cart_cubit/cart_cubit.dart';
 import '../../../controller/cart_cubit/cart_state.dart';
-import '../../../widgets/check_out_widget.dart';
 import '../../../widgets/empty_screen.dart';
 import '../../../widgets/global_methode.dart';
 import '../../../widgets/text_widget.dart';
@@ -49,8 +48,8 @@ class CartScreen extends StatelessWidget {
                     title: 'Empty your cart',
                     subtitle: 'Are you sure?',
                     fct: () async {
-                      await cubit.clearOnlineCart();
                       cubit.clearLocalCart();
+                      await cubit.clearOnlineCart();
                     },
                     context: context,
                   );
@@ -64,9 +63,6 @@ class CartScreen extends StatelessWidget {
           ),
           body: Column(
             children: [
-              CheckOutWidget(
-                price: 5,
-              ),
               Expanded(
                 child: ListView.builder(
                   itemBuilder: (ctx, index) {
