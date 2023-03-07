@@ -4,7 +4,9 @@ import 'package:smart_store/presentation_layer/widgets/text_widget.dart';
 import '../../core/style/color_manager.dart';
 
 class CheckOutWidget extends StatelessWidget {
-  const CheckOutWidget({Key? key}) : super(key: key);
+  const CheckOutWidget({Key? key, required this.price}) : super(key: key);
+
+  final double price;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +36,7 @@ class CheckOutWidget extends StatelessWidget {
             const Spacer(),
             FittedBox(
               child: TextWidget(
-                text: 'Total : \$${5.toStringAsFixed(2)}',
+                text: 'Total : \$${price.toStringAsFixed(2)}',
                 color: Colors.black,
                 textSize: 18,
                 isTitle: true,

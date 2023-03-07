@@ -40,7 +40,7 @@ class SettingScreen extends StatelessWidget {
               children: [
                 RichText(
                   text: TextSpan(
-                      text: 'Hi,   ',
+                      text: 'Welcome',
                       style: const TextStyle(
                           color: Colors.cyan,
                           fontSize: 27,
