@@ -70,28 +70,6 @@ class productItemBuilder extends StatelessWidget {
                             shape: BoxShape.circle,
                             color: Colors.grey.withOpacity(0.5)),
                         child: Icon(
-                          IconlyLight.heart,
-                          size: 30,
-                          color: ColorManager.primary,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left: size.width * 0.12,
-                  bottom: size.height * 0.01,
-                  child: InkWell(
-                    onTap: () {},
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        height: 40,
-                        width: 40,
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.grey.withOpacity(0.5)),
-                        child: Icon(
                           IconlyLight.buy,
                           size: 30,
                           color: ColorManager.primary,
