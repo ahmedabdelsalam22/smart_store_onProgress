@@ -26,7 +26,7 @@ class TabBarViewBody extends StatelessWidget {
           child: ListView.builder(
             physics: BouncingScrollPhysics(),
             itemBuilder: (context, index) {
-              return BuildCatItem(
+              return CategoryItem(
                 productModel: cubit.findByCategory(categoryName)[index],
               );
             },

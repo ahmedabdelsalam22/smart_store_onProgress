@@ -6,8 +6,8 @@ import 'package:smart_store/data_layer/models/product_model.dart';
 import '../../../../core/style/color_manager.dart';
 import '../../../widgets/text_widget.dart';
 
-class BuildCatItem extends StatelessWidget {
-  const BuildCatItem({
+class CategoryItem extends StatelessWidget {
+  const CategoryItem({
     Key? key,
     required this.productModel,
   }) : super(key: key);

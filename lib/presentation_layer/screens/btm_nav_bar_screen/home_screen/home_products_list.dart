@@ -1,11 +1,16 @@
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:smart_store/data_layer/models/product_model.dart';
 
+import '../../../../core/global_method.dart';
 import '../../../../core/route_manager/app_routes.dart';
 import '../../../../core/style/color_manager.dart';
+import '../../../../data_layer/models/cart_model.dart';
+import '../../../controller/cart_cubit/cart_cubit.dart';
+import '../../../controller/cart_cubit/cart_state.dart';
 
 class productItemBuilder extends StatelessWidget {
   const productItemBuilder({
@@ -18,6 +23,7 @@ class productItemBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    CartModel? cartModel;
 
     return InkWell(
       onTap: () {
@@ -59,23 +65,51 @@ class productItemBuilder extends StatelessWidget {
                 Positioned(
                   left: size.width * 0.23,
                   bottom: size.height * 0.011,
-                  child: InkWell(
-                    onTap: () {},
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        height: 40,
-                        width: 40,
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.grey.withOpacity(0.5)),
-                        child: Icon(
-                          IconlyLight.buy,
-                          size: 30,
-                          color: ColorManager.primary,
+                  child: BlocConsumer<CartCubit, CartState>(
+                    listener: (context, state) {
+                      // TODO: implement listener
+                    },
+                    builder: (context, state) {
+                      var cartCubit = CartCubit.get(context);
+                      bool _isInCart =
+                          cartCubit.getCartItems.containsKey(productModel.id);
+/*
+                      final cartList = cartCubit.getCartItems.values
+                          .toList()
+                          .reversed
+                          .toList();*/
+
+                      return InkWell(
+                        onTap: () async {
+                          /// TODO: FIX ISSUES WHEN REMOVE FROM CART
+                          if (_isInCart) {
+                            cartCubit.removeOneItem(
+                              productId: productModel.id,
+                              cartId: cartModel!.id,
+                            );
+                          } else {
+                            await GlobalMethod.addToCart(
+                                productId: productModel.id);
+                            await cartCubit.getCart();
+                          }
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            height: 40,
+                            width: 40,
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.grey.withOpacity(0.5)),
+                            child: Icon(
+                              _isInCart ? IconlyBold.buy : IconlyLight.buy,
+                              size: 30,
+                              color: ColorManager.primary,
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
+                      );
+                    },
                   ),
                 ),
               ],
