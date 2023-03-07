@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
+import '../../../../core/route_manager/app_routes.dart';
 import '../../../../core/style/color_manager.dart';
 import '../../../../data_layer/models/cart_model.dart';
 import '../../../controller/cart_cubit/cart_cubit.dart';
@@ -26,10 +27,9 @@ class CartListItemWidget extends StatelessWidget {
 
     return InkWell(
       onTap: () {
-        //TODO : FOX THIS ISSUE
-        /* Navigator.of(context, rootNavigator: true).pushNamed(
+        Navigator.of(context, rootNavigator: true).pushNamed(
             AppRoutes.productDetailsScreenRoute,
-            arguments: cartList);*/
+            arguments: getCurrentProduct);
       },
       child: Padding(
         padding: const EdgeInsets.all(5.0),
