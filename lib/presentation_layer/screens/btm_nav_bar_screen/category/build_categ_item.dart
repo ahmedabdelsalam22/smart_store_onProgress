@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:smart_store/data_layer/models/product_model.dart';
 
+import '../../../../core/global_method.dart';
 import '../../../../core/style/color_manager.dart';
+import '../../../../data_layer/models/cart_model.dart';
+import '../../../controller/cart_cubit/cart_cubit.dart';
+import '../../../controller/cart_cubit/cart_state.dart';
 import '../../../widgets/text_widget.dart';
 
 class CategoryItem extends StatelessWidget {
@@ -16,6 +21,8 @@ class CategoryItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    CartModel? cartModel;
+
     return Padding(
       padding: const EdgeInsets.all(5.0),
       child: Material(
@@ -87,21 +94,50 @@ class CategoryItem extends StatelessWidget {
                 width: 5,
               ),
               Spacer(),
-              InkWell(
-                onTap: () {},
-                child: Container(
-                  decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.grey.withOpacity(0.5)),
-                  child: Padding(
-                    padding: const EdgeInsets.all(4.0),
-                    child: Icon(
-                      IconlyBold.buy,
-                      size: 26,
-                      color: ColorManager.primary,
+              BlocConsumer<CartCubit, CartState>(
+                listener: (context, state) {
+                  // TODO: implement listener
+                },
+                builder: (context, state) {
+                  var cartCubit = CartCubit.get(context);
+                  bool _isInCart =
+                      cartCubit.getCartItems.containsKey(productModel.id);
+/*
+                      final cartList = cartCubit.getCartItems.values
+                          .toList()
+                          .reversed
+                          .toList();*/
+
+                  return InkWell(
+                    onTap: () async {
+                      /// TODO: FIX ISSUES WHEN REMOVE FROM CART
+                      if (_isInCart) {
+                        cartCubit.removeOneItem(
+                          productId: productModel.id,
+                          cartId: cartModel!.id,
+                        );
+                      } else {
+                        await GlobalMethod.addToCart(
+                            productId: productModel.id);
+                        await cartCubit.getCart();
+                      }
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.grey.withOpacity(0.5),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: Icon(
+                          _isInCart ? IconlyBold.buy : IconlyLight.buy,
+                          size: 28,
+                          color: ColorManager.primary,
+                        ),
+                      ),
                     ),
-                  ),
-                ),
+                  );
+                },
               ),
             ],
           ),
