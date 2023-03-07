@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
+import '../../../../core/global_method.dart';
 import '../../../../core/style/color_manager.dart';
+import '../../../../data_layer/models/cart_model.dart';
 import '../../../../data_layer/models/product_model.dart';
+import '../../../controller/cart_cubit/cart_cubit.dart';
+import '../../../controller/cart_cubit/cart_state.dart';
 import '../../../widgets/main_button.dart';
 import 'drop_down_menu.dart';
 
@@ -16,6 +20,8 @@ class ProductDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+
+    CartModel? cartModel;
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -39,15 +45,6 @@ class ProductDetailsScreen extends StatelessWidget {
             color: ColorManager.primary,
           ),
         ),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.share,
-              color: ColorManager.primary,
-            ),
-          ),
-        ],
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -75,24 +72,6 @@ class ProductDetailsScreen extends StatelessWidget {
                   ),
                 ),
                 const Spacer(),
-                InkWell(
-                  onTap: () {
-                    // TODO ADD TO FAVORITES
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.grey.withOpacity(0.5)),
-                    child: Padding(
-                      padding: const EdgeInsets.all(4.0),
-                      child: Icon(
-                        IconlyLight.heart,
-                        size: 30,
-                        color: ColorManager.primary,
-                      ),
-                    ),
-                  ),
-                ),
                 SizedBox(
                   width: 5,
                 ),
@@ -162,42 +141,52 @@ class ProductDetailsScreen extends StatelessWidget {
               ],
             ),
           ),
-          ratingBar(),
-          const Spacer(),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
-            child: MainButton(
-              text: 'button',
-              onTap: () {},
+          RatingBarIndicator(
+            itemSize: 25.0,
+            rating: productModel.rate!.toDouble(),
+            itemBuilder: (context, _) => const Icon(
+              Icons.star,
+              color: Colors.amber,
             ),
+            direction: Axis.horizontal,
+          ),
+          const Spacer(),
+          BlocConsumer<CartCubit, CartState>(
+            listener: (context, state) {
+              // TODO: implement listener
+            },
+            builder: (context, state) {
+              var cartCubit = CartCubit.get(context);
+              bool _isInCart =
+                  cartCubit.getCartItems.containsKey(productModel.id);
+/*
+                      final cartList = cartCubit.getCartItems.values
+                          .toList()
+                          .reversed
+                          .toList();*/
+
+              return Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
+                child: MainButton(
+                  text: _isInCart ? 'Already in cart' : 'Add To Cart',
+                  onTap: () async {
+                    /// TODO: FIX ISSUES WHEN REMOVE FROM CART
+                    if (_isInCart) {
+                      cartCubit.removeOneItem(
+                        productId: productModel.id,
+                        cartId: cartModel!.id,
+                      );
+                    } else {
+                      await GlobalMethod.addToCart(productId: productModel.id);
+                      await cartCubit.getCart();
+                    }
+                  },
+                ),
+              );
+            },
           ),
         ],
-      ),
-    );
-  }
-
-  ratingBar() {
-    return SizedBox(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 18),
-        child: Row(
-          children: [
-            RatingBar.builder(
-              itemSize: 25,
-              initialRating: 3,
-              minRating: 1,
-              direction: Axis.horizontal,
-              allowHalfRating: true,
-              itemCount: 5,
-              itemBuilder: (context, _) => const Icon(
-                Icons.star,
-                color: Colors.amber,
-              ),
-              onRatingUpdate: (rating) {},
-            ),
-            const Text('5'),
-          ],
-        ),
       ),
     );
   }
