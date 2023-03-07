@@ -115,10 +115,11 @@ class CartListItemWidget extends StatelessWidget {
                           ),
                         ],
                       ),
-                    Text(
-                      '${getCurrentProduct.salePrice}\$',
-                      style: TextStyle(color: ColorManager.primary),
-                    ),
+                    if (!getCurrentProduct.isDiscount!)
+                      Text(
+                        '${getCurrentProduct.salePrice}\$',
+                        style: TextStyle(color: ColorManager.primary),
+                      ),
                   ],
                 ),
                 SizedBox(
