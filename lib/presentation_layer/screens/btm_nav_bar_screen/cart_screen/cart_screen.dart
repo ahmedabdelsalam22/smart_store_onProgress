@@ -64,7 +64,9 @@ class CartScreen extends StatelessWidget {
           ),
           body: Column(
             children: [
-              CheckOutWidget(),
+              CheckOutWidget(
+                price: 5,
+              ),
               Expanded(
                 child: ListView.builder(
                   itemBuilder: (ctx, index) {
