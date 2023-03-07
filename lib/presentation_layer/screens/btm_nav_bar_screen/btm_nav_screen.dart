@@ -11,7 +11,6 @@ import '../../../core/style/color_manager.dart';
 import '../../controller/cart_cubit/cart_state.dart';
 import 'cart_screen/cart_screen.dart';
 import 'category/category_screen.dart';
-import 'fav_screen/favorites_screen.dart';
 import 'home_screen/home_screen.dart';
 
 class BtmNavScreen extends StatefulWidget {
@@ -84,7 +83,6 @@ class _BtmNavScreenState extends State<BtmNavScreen> {
     const HomeScreen(),
     CategoriesScreen(),
     const CartScreen(),
-    const FavoritesScreen(),
     const SettingScreen(),
   ];
 
@@ -113,20 +111,6 @@ class _BtmNavScreenState extends State<BtmNavScreen> {
           child: Icon(IconlyLight.buy),
         ),
         title: "Cart",
-        activeColorPrimary: ColorManager.primary,
-        inactiveColorPrimary: Colors.grey,
-      ),
-      PersistentBottomNavBarItem(
-        icon: Badge(
-          toAnimate: true,
-          shape: BadgeShape.circle,
-          badgeColor: Colors.red,
-          borderRadius: BorderRadius.circular(8),
-          position: BadgePosition.topEnd(top: -7, end: -7),
-          badgeContent: Text('1'),
-          child: Icon(IconlyLight.heart),
-        ),
-        title: "Favorites",
         activeColorPrimary: ColorManager.primary,
         inactiveColorPrimary: Colors.grey,
       ),

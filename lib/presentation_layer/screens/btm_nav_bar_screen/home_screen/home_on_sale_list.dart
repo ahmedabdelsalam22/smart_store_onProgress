@@ -96,14 +96,20 @@ class SaleItemBuilder extends StatelessWidget {
                       var cartCubit = CartCubit.get(context);
                       bool _isInCart =
                           cartCubit.getCartItems.containsKey(productModel.id);
+/*
+                      final cartList = cartCubit.getCartItems.values
+                          .toList()
+                          .reversed
+                          .toList();*/
 
                       return InkWell(
                         onTap: () async {
-                          ///
+                          /// TODO: FIX ISSUES WHEN REMOVE FROM CART
                           if (_isInCart) {
                             cartCubit.removeOneItem(
-                                productId: productModel.id,
-                                cartId: cartModel!.id);
+                              productId: productModel.id,
+                              cartId: cartModel!.id,
+                            );
                           } else {
                             await GlobalMethod.addToCart(
                                 productId: productModel.id);
