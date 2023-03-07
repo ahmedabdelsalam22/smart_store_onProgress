@@ -21,12 +21,13 @@ class ProductDetailsScreen extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
+        elevation: 0.0,
         centerTitle: true,
         title: Text(
           productModel.title,
           style: Theme.of(context)
               .textTheme
-              .headline4!
+              .headline6!
               .copyWith(color: ColorManager.primary),
         ),
         leading: InkWell(
@@ -51,8 +52,10 @@ class ProductDetailsScreen extends StatelessWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset(
-            productModel.imageUrl,
+          Image(
+            image: NetworkImage(
+              productModel.imageUrl,
+            ),
             height: size.height * 0.5,
             width: double.infinity,
             fit: BoxFit.scaleDown,
