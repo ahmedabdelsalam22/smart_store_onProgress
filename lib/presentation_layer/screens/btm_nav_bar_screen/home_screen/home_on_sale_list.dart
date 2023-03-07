@@ -29,8 +29,8 @@ class SaleItemBuilder extends StatelessWidget {
     return InkWell(
       onTap: () {
         Navigator.of(context, rootNavigator: true).pushNamed(
-          AppRoutes.productDetailsScreenRoute,
-        );
+            AppRoutes.productDetailsScreenRoute,
+            arguments: productModel);
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 5),
