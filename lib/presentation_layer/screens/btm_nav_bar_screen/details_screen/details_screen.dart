@@ -131,7 +131,8 @@ class ProductDetailsScreen extends StatelessWidget {
               ],
             ),
           ),
-          defaultText(text: productModel.title, size: 18),
+          defaultText(
+              text: productModel.title, size: 18, weight: FontWeight.w700),
           defaultText(text: productModel.details),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
@@ -189,13 +190,17 @@ class ProductDetailsScreen extends StatelessWidget {
     );
   }
 
-  Widget defaultText({required String text, double size = 16}) {
+  Widget defaultText(
+      {required String text,
+      double size = 16,
+      FontWeight weight = FontWeight.normal}) {
     return Padding(
       padding: const EdgeInsets.only(top: 10, left: 18, right: 18),
       child: Text(
         text,
         maxLines: 5,
-        style: TextStyle(overflow: TextOverflow.ellipsis, fontSize: 16),
+        style: TextStyle(
+            overflow: TextOverflow.ellipsis, fontSize: 16, fontWeight: weight),
         textAlign: TextAlign.start,
       ),
     );
