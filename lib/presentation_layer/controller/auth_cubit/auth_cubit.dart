@@ -35,11 +35,17 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   verifyEmail() async {
+    emit(verifyEmailLoadingState());
     final user = FirebaseAuth.instance.currentUser!;
     if (user.emailVerified) {
       return;
     } else {
-      await user.sendEmailVerification();
+      await user.sendEmailVerification().then((value) {
+        emit(verifyEmailSuccessState());
+      }).catchError((onError) {
+        print(onError.toString());
+        emit(verifyEmailErrorState());
+      });
     }
   }
 
