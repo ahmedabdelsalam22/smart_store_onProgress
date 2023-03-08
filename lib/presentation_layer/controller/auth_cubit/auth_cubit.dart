@@ -25,8 +25,8 @@ class AuthCubit extends Cubit<AuthState> {
     _authRepository
         .createUserWithEmailAndPassword(
             emailAddress: emailAddress, password: password)
-        .then((value) async {
-      await verifyEmail();
+        .then((value) {
+      verifyEmail();
       uploadUserToFireStore(name: name, email: emailAddress, uid: value!.uid);
       emit(RegisterSuccessState());
     }).catchError((onError) {
@@ -38,7 +38,7 @@ class AuthCubit extends Cubit<AuthState> {
     emit(verifyEmailLoadingState());
     final user = FirebaseAuth.instance.currentUser!;
     if (user.emailVerified) {
-      return;
+      emit(verifyEmailSuccessState());
     } else {
       await user.sendEmailVerification().then((value) {
         emit(verifyEmailSuccessState());
