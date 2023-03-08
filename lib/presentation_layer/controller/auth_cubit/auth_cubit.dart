@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smart_store/data_layer/models/user_model.dart';
@@ -15,8 +16,6 @@ class AuthCubit extends Cubit<AuthState> {
 
   static AuthCubit get(context) => BlocProvider.of(context);
 
-  bool isEmailVerified() => _authRepository.isEmailVerified();
-
   void userRegister({
     required String name,
     required String emailAddress,
@@ -26,12 +25,22 @@ class AuthCubit extends Cubit<AuthState> {
     _authRepository
         .createUserWithEmailAndPassword(
             emailAddress: emailAddress, password: password)
-        .then((value) {
+        .then((value) async {
+      await verifyEmail();
       uploadUserToFireStore(name: name, email: emailAddress, uid: value!.uid);
       emit(RegisterSuccessState());
     }).catchError((onError) {
       emit(RegisterErrorState(onError.toString()));
     });
+  }
+
+  verifyEmail() async {
+    final user = FirebaseAuth.instance.currentUser!;
+    if (user.emailVerified) {
+      return;
+    } else {
+      await user.sendEmailVerification();
+    }
   }
 
   uploadUserToFireStore(
@@ -52,16 +61,6 @@ class AuthCubit extends Cubit<AuthState> {
       emit(SaveUserDataErrorState(onError.toString()));
     });
   }
-
-/*  getUserDataFromFireStore({required String uid}) {
-    emit(GetUserDataLoadingState());
-    _fireStoreRepository.getUserDataFromFireStore(uid: uid).then((value) {
-      debugPrint("get user data from foreStore Success");
-      emit(GetUserDataSuccessState());
-    }).catchError((onError) {
-      emit(GetUserDataErrorState(onError.toString()));
-    });
-  }*/
 
   void userLogin({
     required String emailAddress,
