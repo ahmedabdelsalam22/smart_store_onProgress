@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,6 +5,7 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:smart_store/presentation_layer/screens/btm_nav_bar_screen/setting_screen/social_medial.dart';
 
+import '../../../../core/global_method.dart';
 import '../../../../core/route_manager/app_routes.dart';
 import '../../../../core/style/color_manager.dart';
 import '../../../controller/auth_cubit/auth_cubit.dart';
@@ -17,7 +17,7 @@ class SettingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final user = FirebaseAuth.instance.currentUser!;
+    final user = GlobalMethod.user;
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -46,7 +46,7 @@ class SettingScreen extends StatelessWidget {
                           fontWeight: FontWeight.bold),
                       children: <TextSpan>[
                         TextSpan(
-                            text: user.displayName == null
+                            text: user!.displayName == null
                                 ? ""
                                 : user.displayName,
                             style: TextStyle(
