@@ -51,3 +51,9 @@ class GetUserDataErrorState extends AuthState {
 
   GetUserDataErrorState(this.error);
 }
+
+class verifyEmailLoadingState extends AuthState {}
+
+class verifyEmailSuccessState extends AuthState {}
+
+class verifyEmailErrorState extends AuthState {}
