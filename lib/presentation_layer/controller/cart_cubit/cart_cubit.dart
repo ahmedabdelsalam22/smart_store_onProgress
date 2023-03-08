@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:smart_store/core/global_method.dart';
 
 import '../../../data_layer/models/cart_model.dart';
 import 'cart_state.dart';
@@ -20,7 +20,8 @@ class CartCubit extends Cubit<CartState> {
 
   Future<void> getCart() async {
     emit(GetCartLoadingState());
-    final User? user = FirebaseAuth.instance.currentUser;
+
+    final user = GlobalMethod.user;
 
     final DocumentSnapshot userDoc = await userCollection.doc(user!.uid).get();
 
@@ -44,7 +45,7 @@ class CartCubit extends Cubit<CartState> {
     required String cartId,
     required String productId,
   }) async {
-    final User? user = FirebaseAuth.instance.currentUser;
+    final user = GlobalMethod.user;
 
     await userCollection.doc(user!.uid).update({
       'userCart': FieldValue.arrayRemove([
@@ -61,7 +62,7 @@ class CartCubit extends Cubit<CartState> {
   }
 
   Future<void> clearOnlineCart() async {
-    final User? user = FirebaseAuth.instance.currentUser;
+    final user = GlobalMethod.user;
 
     await userCollection.doc(user!.uid).update({
       'userCart': [],

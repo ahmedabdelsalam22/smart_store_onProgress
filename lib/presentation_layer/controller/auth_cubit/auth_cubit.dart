@@ -1,9 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smart_store/data_layer/models/user_model.dart';
 import 'package:smart_store/domain_layer/repository/auth_repository.dart';
 
+import '../../../core/global_method.dart';
 import '../../../domain_layer/repository/firestore_repository.dart';
 import 'auth_state.dart';
 
@@ -36,8 +36,8 @@ class AuthCubit extends Cubit<AuthState> {
 
   verifyEmail() async {
     emit(verifyEmailLoadingState());
-    final user = FirebaseAuth.instance.currentUser!;
-    if (user.emailVerified) {
+    final user = GlobalMethod.user;
+    if (user!.emailVerified) {
       emit(verifyEmailSuccessState());
     } else {
       await user.sendEmailVerification().then((value) {
@@ -56,6 +56,7 @@ class AuthCubit extends Cubit<AuthState> {
     UserModel userModel = UserModel(
       name: name,
       email: email,
+      userCart: [],
     );
 
     _fireStoreRepository
