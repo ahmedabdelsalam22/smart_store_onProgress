@@ -33,6 +33,7 @@ class ViewAllProductScreen extends StatelessWidget {
         },
         builder: (context, state) {
           var cubit = ProductCubit.get(context);
+
           return ListView.builder(
             itemBuilder: (context, index) {
               return ViewProductItem(
