@@ -50,7 +50,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           padding: const EdgeInsets.symmetric(vertical: 46.0, horizontal: 32.0),
           child: BlocConsumer<AuthCubit, AuthState>(
             listener: (context, state) {
-              if (state is verifyEmailSuccessState)
+              if (state is RegisterSuccessState)
                 //  if (state is RegisterSuccessState)
                 Navigator.pushNamed(context, AppRoutes.btmNavScreenRoute);
             },

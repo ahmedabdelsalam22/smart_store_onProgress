@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:smart_store/data_layer/models/cart_model.dart';
 import 'package:smart_store/data_layer/models/product_model.dart';
 import 'package:smart_store/presentation_layer/controller/cart_cubit/cart_cubit.dart';
 import 'package:smart_store/presentation_layer/controller/cart_cubit/cart_state.dart';
@@ -24,7 +23,7 @@ class SaleItemBuilder extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
-    CartModel? cartModel;
+    //  CartModel? cartModel;
 
     return InkWell(
       onTap: () {
@@ -73,20 +72,21 @@ class SaleItemBuilder extends StatelessWidget {
                       var cartCubit = CartCubit.get(context);
                       bool _isInCart =
                           cartCubit.getCartItems.containsKey(productModel.id);
-/*
+
                       final cartList = cartCubit.getCartItems.values
                           .toList()
                           .reversed
-                          .toList();*/
+                          .toList();
 
                       return InkWell(
                         onTap: () async {
                           /// TODO: FIX ISSUES WHEN REMOVE FROM CART
                           if (_isInCart) {
-                            cartCubit.removeOneItem(
-                              productId: productModel.id,
-                              cartId: cartModel!.id,
-                            );
+                            cartList.forEach((element) => {
+                                  cartCubit.removeOneItem(
+                                      productId: element.productId,
+                                      cartId: element.id)
+                                });
                           } else {
                             await GlobalMethod.addToCart(
                                 productId: productModel.id);
