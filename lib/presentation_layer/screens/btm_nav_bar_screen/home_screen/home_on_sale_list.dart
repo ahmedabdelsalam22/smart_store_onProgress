@@ -80,7 +80,6 @@ class SaleItemBuilder extends StatelessWidget {
 
                       return InkWell(
                         onTap: () async {
-                          /// TODO: FIX ISSUES WHEN REMOVE FROM CART
                           if (_isInCart) {
                             cartList.forEach((element) => {
                                   cartCubit.removeOneItem(
