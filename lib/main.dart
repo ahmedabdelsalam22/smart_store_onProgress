@@ -37,6 +37,7 @@ void checkUserAuth() {
     if (user == null) {
       initialRoute = AppRoutes.loginScreenRoute;
     } else {
+      // UserUID().centralizedUserUid = user.uid;
       initialRoute = AppRoutes.btmNavScreenRoute;
     }
   });
@@ -56,13 +57,15 @@ class _MyAppState extends State<MyApp> {
       providers: [
         BlocProvider(
           create: (context) => AuthCubit(
-              AuthRepositoryImpl(AuthRemoteDataSourceImpl()),
-              FireStoreRepositoryImpl(FireStoreRemoteDataSourceImpl())),
+            AuthRepositoryImpl(AuthRemoteDataSourceImpl()),
+            FireStoreRepositoryImpl(FireStoreRemoteDataSourceImpl()),
+          ),
         ),
         BlocProvider(
-            create: (context) => ProductCubit(
-                FireStoreRepositoryImpl(FireStoreRemoteDataSourceImpl()))
-              ..getAllProducts()),
+          create: (context) => ProductCubit(
+              FireStoreRepositoryImpl(FireStoreRemoteDataSourceImpl()))
+            ..getAllProducts(),
+        ),
         BlocProvider(create: (context) => CartCubit()..getCart())
       ],
       child: MaterialApp(

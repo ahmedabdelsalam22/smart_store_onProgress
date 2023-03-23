@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:smart_store/data_layer/models/user_model.dart';
 import 'package:smart_store/domain_layer/repository/auth_repository.dart';
 
-import '../../../core/global_method.dart';
 import '../../../domain_layer/repository/firestore_repository.dart';
 import 'auth_state.dart';
 
@@ -26,28 +25,27 @@ class AuthCubit extends Cubit<AuthState> {
         .createUserWithEmailAndPassword(
             emailAddress: emailAddress, password: password)
         .then((value) {
-      verifyEmail();
+      //  verifyEmail();
       uploadUserToFireStore(name: name, email: emailAddress, uid: value!.uid);
       emit(RegisterSuccessState());
     }).catchError((onError) {
       emit(RegisterErrorState(onError.toString()));
     });
   }
-
-  verifyEmail() async {
-    emit(verifyEmailLoadingState());
-    final user = GlobalMethod.user;
-    if (user!.emailVerified) {
-      emit(verifyEmailSuccessState());
-    } else {
-      await user.sendEmailVerification().then((value) {
-        emit(verifyEmailSuccessState());
-      }).catchError((onError) {
-        print(onError.toString());
-        emit(verifyEmailErrorState());
-      });
-    }
-  }
+  //
+  // verifyEmail() async {
+  //   emit(verifyEmailLoadingState());
+  //   if (user!.emailVerified) {
+  //     emit(verifyEmailSuccessState());
+  //   } else {
+  //     await user.sendEmailVerification().then((value) {
+  //       emit(verifyEmailSuccessState());
+  //     }).catchError((onError) {
+  //       print(onError.toString());
+  //       emit(verifyEmailErrorState());
+  //     });
+  //   }
+  // }
 
   uploadUserToFireStore(
       {required String name, required String email, required String uid}) {
@@ -58,7 +56,6 @@ class AuthCubit extends Cubit<AuthState> {
       email: email,
       userCart: [],
     );
-
     _fireStoreRepository
         .uploadUserDataToFireStore(data: userModel.toMap(), uid: uid)
         .then((value) {
