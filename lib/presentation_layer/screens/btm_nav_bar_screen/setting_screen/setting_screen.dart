@@ -97,8 +97,6 @@ class SettingScreen extends StatelessWidget {
                     if (state is SignOutSuccessState)
                       Navigator.of(context, rootNavigator: true)
                           .pushReplacementNamed(AppRoutes.loginScreenRoute);
-
-                    /// TODO: this issue
                   },
                   builder: (context, state) {
                     var cubit = AuthCubit.get(context);

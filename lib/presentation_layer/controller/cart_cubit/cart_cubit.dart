@@ -23,22 +23,26 @@ class CartCubit extends Cubit<CartState> {
 
   Future<void> getCart() async {
     emit(GetCartLoadingState());
+    try {
+      final DocumentSnapshot userDoc =
+          await userCollection.doc(user!.uid).get();
 
-    final DocumentSnapshot userDoc = await userCollection.doc(user!.uid).get();
-
-    if (userDoc == null) {
-      return;
+      if (userDoc == null) {
+        return;
+      }
+      final leng = userDoc.get('userCart').length;
+      for (int i = 0; i < leng; i++) {
+        _cartItems.putIfAbsent(
+            userDoc.get('userCart')[i]['productId'],
+            () => CartModel(
+                  id: userDoc.get('userCart')[i]['cartId'],
+                  productId: userDoc.get('userCart')[i]['productId'],
+                ));
+      }
+      emit(GetCartSuccessState());
+    } catch (e) {
+      emit(GetCartErrorState());
     }
-    final leng = userDoc.get('userCart').length;
-    for (int i = 0; i < leng; i++) {
-      _cartItems.putIfAbsent(
-          userDoc.get('userCart')[i]['productId'],
-          () => CartModel(
-                id: userDoc.get('userCart')[i]['cartId'],
-                productId: userDoc.get('userCart')[i]['productId'],
-              ));
-    }
-    emit(GetCartSuccessState());
   }
 
   // remove one item from cart
