@@ -52,7 +52,7 @@ class AuthCubit extends Cubit<AuthState> {
   /// login with google email
   GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
   FirebaseAuth _auth = FirebaseAuth.instance;
-  void googleSignInMethod() async {
+  Future<void> googleSignInMethod() async {
     emit(SignInWithGoogleLoadingState());
     try {
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
