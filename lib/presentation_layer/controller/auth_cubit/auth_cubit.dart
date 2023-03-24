@@ -53,22 +53,28 @@ class AuthCubit extends Cubit<AuthState> {
   GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
   FirebaseAuth _auth = FirebaseAuth.instance;
   void googleSignInMethod() async {
-    final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
-    print(googleUser);
-    GoogleSignInAuthentication googleSignInAuthentication =
-        await googleUser!.authentication;
+    emit(SignInWithGoogleLoadingState());
+    try {
+      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+      print(googleUser);
+      GoogleSignInAuthentication googleSignInAuthentication =
+          await googleUser!.authentication;
 
-    final AuthCredential credential = GoogleAuthProvider.credential(
-      idToken: googleSignInAuthentication.idToken,
-      accessToken: googleSignInAuthentication.accessToken,
-    );
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        idToken: googleSignInAuthentication.idToken,
+        accessToken: googleSignInAuthentication.accessToken,
+      );
 
-    await _auth.signInWithCredential(credential).then((user) {
-      uploadUserToFireStore(
-          name: "${user.user!.displayName}",
-          email: "${user.user!.email}",
-          uid: "${user.user!.uid}");
-    });
+      await _auth.signInWithCredential(credential).then((user) {
+        uploadUserToFireStore(
+            name: "${user.user!.displayName}",
+            email: "${user.user!.email}",
+            uid: "${user.user!.uid}");
+      });
+      emit(SignInWithGoogleSuccessState());
+    } catch (e) {
+      emit(SignInWithGoogleErrorState());
+    }
   }
 
   uploadUserToFireStore(

@@ -57,3 +57,9 @@ class verifyEmailLoadingState extends AuthState {}
 class verifyEmailSuccessState extends AuthState {}
 
 class verifyEmailErrorState extends AuthState {}
+
+class SignInWithGoogleLoadingState extends AuthState {}
+
+class SignInWithGoogleSuccessState extends AuthState {}
+
+class SignInWithGoogleErrorState extends AuthState {}
