@@ -73,12 +73,10 @@ class productItemBuilder extends StatelessWidget {
                       var cartCubit = CartCubit.get(context);
                       bool _isInCart =
                           cartCubit.getCartItems.containsKey(productModel.id);
-
                       final cartList = cartCubit.getCartItems.values
                           .toList()
                           .reversed
                           .toList();
-
                       return InkWell(
                         onTap: () async {
                           if (_isInCart) {

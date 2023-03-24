@@ -44,7 +44,6 @@ class CartListItemWidget extends StatelessWidget {
                 Stack(
                   children: [
                     Image(
-                      //  image: AssetImage('assets/images/category/bag.jpg'),
                       image: NetworkImage(getCurrentProduct.imageUrl),
                       height: 80,
                       width: 80,

@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:smart_store/data_layer/models/user_model.dart';
 import 'package:smart_store/domain_layer/repository/auth_repository.dart';
 
@@ -32,7 +34,7 @@ class AuthCubit extends Cubit<AuthState> {
       emit(RegisterErrorState(onError.toString()));
     });
   }
-  //
+
   // verifyEmail() async {
   //   emit(verifyEmailLoadingState());
   //   if (user!.emailVerified) {
@@ -46,6 +48,28 @@ class AuthCubit extends Cubit<AuthState> {
   //     });
   //   }
   // }
+
+  /// login with google email
+  GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
+  FirebaseAuth _auth = FirebaseAuth.instance;
+  void googleSignInMethod() async {
+    final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+    print(googleUser);
+    GoogleSignInAuthentication googleSignInAuthentication =
+        await googleUser!.authentication;
+
+    final AuthCredential credential = GoogleAuthProvider.credential(
+      idToken: googleSignInAuthentication.idToken,
+      accessToken: googleSignInAuthentication.accessToken,
+    );
+
+    await _auth.signInWithCredential(credential).then((user) {
+      uploadUserToFireStore(
+          name: "${user.user!.displayName}",
+          email: "${user.user!.email}",
+          uid: "${user.user!.uid}");
+    });
+  }
 
   uploadUserToFireStore(
       {required String name, required String email, required String uid}) {

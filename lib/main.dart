@@ -37,7 +37,6 @@ void checkUserAuth() {
     if (user == null) {
       initialRoute = AppRoutes.loginScreenRoute;
     } else {
-      // UserUID().centralizedUserUid = user.uid;
       initialRoute = AppRoutes.btmNavScreenRoute;
     }
   });
