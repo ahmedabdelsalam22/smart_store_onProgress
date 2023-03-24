@@ -46,11 +46,13 @@ class _LoginScreenState extends State<LoginScreen> {
           padding: const EdgeInsets.symmetric(vertical: 46.0, horizontal: 32.0),
           child: BlocConsumer<AuthCubit, AuthState>(
             listener: (context, state) {
-              if (state is LoginSuccessState) {
+              if (state is LoginSuccessState ||
+                  state is SignInWithGoogleSuccessState) {
                 Navigator.pushReplacementNamed(
                     context, AppRoutes.btmNavScreenRoute);
               }
-              if (state is LoginErrorState) {
+              if (state is LoginErrorState ||
+                  state is SignInWithGoogleSuccessState) {
                 Components.showToast(
                     message: 'login failed', color: Colors.red);
               }
@@ -171,7 +173,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           InkWell(
-                            onTap: () {},
+                            onTap: () async {
+                              await cubit.googleSignInMethod();
+                            },
                             child: Container(
                                 height: 60,
                                 width: 60,
