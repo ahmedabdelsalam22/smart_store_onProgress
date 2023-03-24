@@ -107,9 +107,12 @@ class _LoginScreenState extends State<LoginScreen> {
                           Navigator.pushNamed(
                               context, AppRoutes.forgetPasswordScreenRoute);
                         },
-                        child: const Align(
+                        child: Align(
                           alignment: Alignment.topRight,
-                          child: Text('Forget your password?'),
+                          child: Text(
+                            'forget password?',
+                            style: TextStyle(color: ColorManager.primary),
+                          ),
                         ),
                       ),
                       const SizedBox(
@@ -174,7 +177,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         children: [
                           InkWell(
                             onTap: () async {
-                              await cubit.googleSignInMethod();
+                              await cubit.googleSignInMethod(context: context);
                             },
                             child: Container(
                                 height: 60,

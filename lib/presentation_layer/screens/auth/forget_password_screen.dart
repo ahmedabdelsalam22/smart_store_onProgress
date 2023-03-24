@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:smart_store/presentation_layer/widgets/toast_view.dart';
 
 import '../../../core/route_manager/app_routes.dart';
 import '../../../core/style/color_manager.dart';
@@ -18,6 +20,17 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _emailFocusNode = FocusNode();
+
+  FirebaseAuth _auth = FirebaseAuth.instance;
+
+  Future<void> forgetPassword() async {
+    await _auth.sendPasswordResetEmail(
+        email: _emailController.text.toLowerCase());
+
+    Components.showToast(
+        message: "An email has been sent to your email address",
+        color: Colors.green);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -109,7 +122,11 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                     text: 'Send',
                     onTap: () {
                       /// Todo on function
-                      if (_formKey.currentState!.validate()) {}
+                      if (_formKey.currentState!.validate()) {
+                        setState(() {
+                          forgetPassword();
+                        });
+                      }
                     },
                   ),
                 ],
